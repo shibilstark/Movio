@@ -1,6 +1,5 @@
 class DioFailure {
   final String message;
-
   final int statusCode;
 
   DioFailure({
