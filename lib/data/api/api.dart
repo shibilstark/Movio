@@ -21,4 +21,5 @@ class MovieEndPoint {
   static const _moviePath = "movie/";
   String details() => "$_moviePath/$id";
   String similar() => "$_moviePath/$id/similar";
+  String images() => "$_moviePath/$id/images";
 }
