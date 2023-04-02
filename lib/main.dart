@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:movio/config/build_config.dart';
 import 'package:movio/data/api/api.dart';
+import 'package:movio/data/movies/movie_repsitory_impl/movie_repsitory_impl.dart';
 
 void main() async {
   await initializeDependancies();
@@ -41,10 +44,12 @@ class HomeScreen extends StatelessWidget {
         child: ElevatedButton(
             onPressed: () async {
               // final restult = await MovieRepositoryImpl()
-              //     .getSimilarMovies(movieId: 76600, pageNumber: 1);
+              //     .search(query: "Marvel", pageNumber: 1);
 
               // restult.fold((l) {
-              //   log(l.movies.length.toString());
+              //   l.movies.forEach((element) {
+              //     log(element.title);
+              //   });
               // }, (r) {
               //   log(r.message);
               // });

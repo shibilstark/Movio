@@ -19,6 +19,8 @@ class MoviesApi {
   final api = Api();
   final _apiKey = "api_key";
   final _pageKey = "page";
+  final _queryKey = "query";
+  final _includeAdultKey = "include_adult";
 
   Future<Either<MovieCollection, AppFailure>> getMoviesCollection({
     required MovieCollectionType type,
@@ -30,6 +32,47 @@ class MoviesApi {
       final result = await client.get(url: url, queryParameters: {
         _apiKey: api.key,
         _pageKey: pageNumber,
+      });
+      return result.fold((respnse) {
+        if (client.isValidResponse(respnse.statusCode)) {
+          final dto = PaginatedDto.fromJson(respnse.data);
+          return Left(dto.toModel());
+        } else {
+          return Right(AppFailure(
+            message:
+                "Response invalid Something went wrong please try again later",
+            type: AppFailureType.server,
+          ));
+        }
+      }, (error) {
+        return Right(AppFailure(
+          message: error.message,
+          type: AppFailureType.client,
+        ));
+      });
+    } catch (e) {
+      if (kDebugMode) {
+        rethrow;
+      }
+      return Right(AppFailure(
+        message: e.toString(),
+        type: AppFailureType.client,
+      ));
+    }
+  }
+
+  Future<Either<MovieCollection, AppFailure>> search({
+    required String query,
+    required int pageNumber,
+  }) async {
+    try {
+      final url = api.baseUrl + api.movieCollection.search;
+
+      final result = await client.get(url: url, queryParameters: {
+        _apiKey: api.key,
+        _pageKey: pageNumber,
+        _queryKey: query,
+        _includeAdultKey: true,
       });
       return result.fold((respnse) {
         if (client.isValidResponse(respnse.statusCode)) {
