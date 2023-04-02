@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:movio/domain/movies/models/genre.dart';
 part 'genre_entity.g.dart';
 
 @JsonSerializable()
@@ -18,4 +19,8 @@ class GenreEntity {
   }
 
   Map<String, dynamic> toJson() => _$GenreEntityToJson(this);
+
+  Genre toMode() {
+    return Genre(id: id, name: name);
+  }
 }
