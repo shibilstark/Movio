@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:movio/packages/network/dio_failure.dart';
 import '../../config/build_config.dart';
 
@@ -23,18 +22,7 @@ class AppNetwork {
 
       return Left(res);
     } on DioError catch (e) {
-      if (kDebugMode) {
-        rethrow;
-      }
-      if (e.type == DioErrorType.connectTimeout ||
-          e.type == DioErrorType.sendTimeout ||
-          e.type == DioErrorType.receiveTimeout) {
-        return Right(DioFailure(message: "", statusCode: 404));
-      }
-      if (e.type == DioErrorType.response) {
-        return Right(DioFailure(message: "", statusCode: 404));
-      }
-      return Right(DioFailure(message: "", statusCode: 404));
+      return Right(DioFailure(message: e.message));
     }
   }
 
@@ -48,18 +36,7 @@ class AppNetwork {
 
       return Left(res);
     } on DioError catch (e) {
-      if (kDebugMode) {
-        rethrow;
-      }
-      if (e.type == DioErrorType.connectTimeout ||
-          e.type == DioErrorType.sendTimeout ||
-          e.type == DioErrorType.receiveTimeout) {
-        return Right(DioFailure(message: "", statusCode: 404));
-      }
-      if (e.type == DioErrorType.response) {
-        return Right(DioFailure(message: "", statusCode: 404));
-      }
-      return Right(DioFailure(message: "", statusCode: 404));
+      return Right(DioFailure(message: e.message));
     }
   }
 
@@ -75,8 +52,8 @@ class AppNetwork {
     return res.data['message'] as String;
   }
 
-  bool isValidResponse(Response res) {
-    if (res.statusCode == 200 || res.statusCode == 201) {
+  bool isValidResponse(int? statusCode) {
+    if (statusCode == 200 || statusCode == 201) {
       return true;
     } else {
       return false;

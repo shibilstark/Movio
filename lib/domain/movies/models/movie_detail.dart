@@ -1,3 +1,5 @@
+import 'package:movio/domain/movies/models/genre.dart';
+
 class MovieDetails {
   final String? posterPath;
   final bool isAdult;
@@ -6,7 +8,7 @@ class MovieDetails {
   final int revenue;
   final int? runtime;
   final String releaseDate;
-  final List<int> genreIds;
+  final List<Genre> genres;
   final int id;
   final String originalTitle;
   final String title;
@@ -20,7 +22,7 @@ class MovieDetails {
     required this.isAdult,
     required this.overview,
     required this.releaseDate,
-    required this.genreIds,
+    required this.genres,
     required this.id,
     required this.originalTitle,
     required this.title,

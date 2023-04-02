@@ -1,4 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:movio/data/movies/entities/genre_dto/genre_dto.dart';
+import 'package:movio/domain/movies/models/movie_detail.dart';
 part 'movie_detail_dto.g.dart';
 
 @JsonSerializable()
@@ -17,8 +19,8 @@ class MovieDetailDto {
   final int? runtime;
   @JsonKey(name: 'release_date')
   final String releaseDate;
-  @JsonKey(name: 'genre_ids')
-  final List<int> genreIds;
+  @JsonKey(name: 'genres')
+  final List<GenreDto> genres;
   @JsonKey(name: 'id')
   final int id;
   @JsonKey(name: 'original_title')
@@ -39,7 +41,7 @@ class MovieDetailDto {
     required this.isAdult,
     required this.overview,
     required this.releaseDate,
-    required this.genreIds,
+    required this.genres,
     required this.id,
     required this.originalTitle,
     required this.title,
@@ -57,4 +59,22 @@ class MovieDetailDto {
   }
 
   Map<String, dynamic> toJson() => _$MovieDetailDtoToJson(this);
+
+  MovieDetails toModel() => MovieDetails(
+        isAdult: isAdult,
+        overview: overview,
+        releaseDate: releaseDate,
+        genres: genres.map((e) => e.toModel()).toList(),
+        id: id,
+        originalTitle: originalTitle,
+        title: title,
+        budget: budget,
+        originalLanguage: originalLanguage,
+        popularity: popularity,
+        revenue: revenue,
+        status: status,
+        backdropPath: backdropPath,
+        posterPath: posterPath,
+        runtime: runtime,
+      );
 }
