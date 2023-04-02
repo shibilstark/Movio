@@ -30,4 +30,10 @@ class MovieRepositoryImpl implements MovieRepository {
       {required int pageNumber, required int movieId}) {
     return moviesApi.getSimilarMovies(movieId: movieId, pageNumber: pageNumber);
   }
+
+  @override
+  Future<Either<MovieCollection, AppFailure>> search(
+      {required String query, required int pageNumber}) {
+    return moviesApi.search(query: query, pageNumber: pageNumber);
+  }
 }
