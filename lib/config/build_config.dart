@@ -26,7 +26,7 @@ class BuildConfig {
 class Configuration {
   final Duration networkTimeOut;
   final Duration serverTimeOut;
-  final Duration baseUrl;
+  final String baseUrl;
   final String appName;
 
   Configuration({

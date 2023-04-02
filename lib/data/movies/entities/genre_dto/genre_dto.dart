@@ -1,26 +1,26 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:movio/domain/movies/models/genre.dart';
-part 'genre_entity.g.dart';
+part 'genre_dto.g.dart';
 
 @JsonSerializable()
-class GenreEntity {
+class GenreDto {
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'id')
   final int id;
 
-  GenreEntity({
+  GenreDto({
     required this.name,
     required this.id,
   });
 
-  factory GenreEntity.fromJson(Map<String, dynamic> json) {
-    return _$GenreEntityFromJson(json);
+  factory GenreDto.fromJson(Map<String, dynamic> json) {
+    return _$GenreDtoFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$GenreEntityToJson(this);
+  Map<String, dynamic> toJson() => _$GenreDtoToJson(this);
 
-  Genre toMode() {
+  Genre toModel() {
     return Genre(id: id, name: name);
   }
 }
