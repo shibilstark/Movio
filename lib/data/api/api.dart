@@ -15,6 +15,7 @@ class MovieCollectionEndPoint {
   final upcoming = "$_moviePath/upcoming";
   final latest = "$_moviePath/latest";
   final search = "search/movie";
+  final trending = "trending/all/day";
 }
 
 class MovieEndPoint {

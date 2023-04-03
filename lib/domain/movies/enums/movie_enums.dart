@@ -3,6 +3,7 @@ enum MovieCollectionType {
   topRated,
   nowPlaying,
   upcoming,
+  trending,
 }
 
 enum MovieGenreTypes {

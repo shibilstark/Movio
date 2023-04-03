@@ -10,6 +10,7 @@ abstract class MovieRepository {
     required MovieCollectionType type,
     required int pageNumber,
   });
+
   Future<Either<MovieCollection, AppFailure>> search({
     required String query,
     required int pageNumber,
