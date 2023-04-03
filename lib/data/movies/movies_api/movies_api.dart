@@ -223,6 +223,7 @@ class MoviesApi {
       MovieCollectionType.popular: api.movieCollection.popular,
       MovieCollectionType.topRated: api.movieCollection.topRated,
       MovieCollectionType.upcoming: api.movieCollection.upcoming,
+      MovieCollectionType.trending: api.movieCollection.trending,
     };
     return collectionMap[type] ?? api.movieCollection.popular;
   }
