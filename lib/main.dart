@@ -1,10 +1,10 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movio/config/build_config.dart';
+import 'package:movio/config/themes.dart';
 import 'package:movio/data/api/api.dart';
-import 'package:movio/data/movies/movie_repsitory_impl/movie_repsitory_impl.dart';
 import 'package:movio/injector/injection.dart';
+import 'package:movio/presentation/bloc/theme/theme_bloc.dart';
 
 void main() async {
   await initializeDependancies();
@@ -31,8 +31,16 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomeScreen(),
+    return BlocProvider(
+      create: (context) => ThemeBloc(),
+      child: BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, state) {
+          return MaterialApp(
+            theme: state.isDarkMode ? AppThemes.dark : AppThemes.light,
+            home: const HomeScreen(),
+          );
+        },
+      ),
     );
   }
 }
@@ -57,7 +65,7 @@ class HomeScreen extends StatelessWidget {
               //   log(r.message);
               // });
             },
-            child: Text("call")),
+            child: const Text("call")),
       ),
     );
   }

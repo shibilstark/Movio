@@ -13,7 +13,7 @@ class Movie extends Equatable {
 
   final String? backdropPath;
 
-  Movie({
+  const Movie({
     this.posterPath,
     required this.isAdult,
     required this.overview,

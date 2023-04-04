@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:movio/domain/failure.dart';
-import 'package:movio/domain/movies/models/movie.dart';
 import 'package:movio/domain/movies/models/movie_collection.dart';
 import 'package:movio/domain/movies/repository/movie_repository.dart';
 import 'package:movio/injector/injection.dart';
@@ -64,11 +63,6 @@ class MovieSearchBloc extends Bloc<MovieSearchEvent, MovieSearchState> {
         AppFailure(message: "No Internet Found", type: AppFailureType.internet),
       ));
     }
-  }
-
-  @override
-  Future<void> close() {
-    return super.close();
   }
 
   _emitLoadingForSuccess(Emitter<MovieSearchState> e) {
