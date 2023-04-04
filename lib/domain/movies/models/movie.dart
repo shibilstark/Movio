@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:movio/domain/movies/models/genre.dart';
 
-class Movie {
+class Movie extends Equatable {
   final String? posterPath;
   final bool isAdult;
   final String overview;
@@ -23,4 +24,12 @@ class Movie {
     required this.title,
     this.backdropPath,
   });
+
+  @override
+  List<Object?> get props => [
+        id,
+        isAdult,
+        title,
+        releaseDate,
+      ];
 }

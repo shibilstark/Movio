@@ -1,4 +1,6 @@
-class MovieImage {
+import 'package:equatable/equatable.dart';
+
+class MovieImage extends Equatable {
   final List<MovieImageData> backdrops;
   final List<MovieImageData> posters;
   final int id;
@@ -8,9 +10,12 @@ class MovieImage {
     required this.posters,
     required this.id,
   });
+
+  @override
+  List<Object?> get props => [id];
 }
 
-class MovieImageData {
+class MovieImageData extends Equatable {
   final double aspectRatio;
   final String filePath;
   final int height;
@@ -22,4 +27,7 @@ class MovieImageData {
     required this.height,
     required this.width,
   });
+
+  @override
+  List<Object?> get props => [filePath];
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:movio/config/build_config.dart';
 import 'package:movio/data/api/api.dart';
 import 'package:movio/data/movies/movie_repsitory_impl/movie_repsitory_impl.dart';
+import 'package:movio/injector/injection.dart';
 
 void main() async {
   await initializeDependancies();
@@ -22,6 +23,8 @@ Future<void> initializeDependancies() async {
       appName: "Movio",
     ),
   );
+
+  await configureInjection();
 }
 
 class MyApp extends StatelessWidget {

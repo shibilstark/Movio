@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:movio/data/api/api.dart';
@@ -15,8 +13,8 @@ import 'package:movio/packages/network/app_network.dart';
 import '../../../domain/movies/models/movie_detail.dart';
 
 class MoviesApi {
-  final client = AppNetwork();
-  final api = Api();
+  final _client = AppNetwork();
+  final _api = Api();
   final _apiKey = "api_key";
   final _pageKey = "page";
   final _queryKey = "query";
@@ -27,14 +25,14 @@ class MoviesApi {
     required int pageNumber,
   }) async {
     try {
-      final url = api.baseUrl + _getCollectionByType(type);
+      final url = _api.baseUrl + _getCollectionByType(type);
 
-      final result = await client.get(url: url, queryParameters: {
-        _apiKey: api.key,
+      final result = await _client.get(url: url, queryParameters: {
+        _apiKey: _api.key,
         _pageKey: pageNumber,
       });
       return result.fold((respnse) {
-        if (client.isValidResponse(respnse.statusCode)) {
+        if (_client.isValidResponse(respnse.statusCode)) {
           final dto = PaginatedDto.fromJson(respnse.data);
           return Left(dto.toModel());
         } else {
@@ -66,16 +64,16 @@ class MoviesApi {
     required int pageNumber,
   }) async {
     try {
-      final url = api.baseUrl + api.movieCollection.search;
+      final url = _api.baseUrl + _api.movieCollection.search;
 
-      final result = await client.get(url: url, queryParameters: {
-        _apiKey: api.key,
+      final result = await _client.get(url: url, queryParameters: {
+        _apiKey: _api.key,
         _pageKey: pageNumber,
         _queryKey: query,
         _includeAdultKey: true,
       });
       return result.fold((respnse) {
-        if (client.isValidResponse(respnse.statusCode)) {
+        if (_client.isValidResponse(respnse.statusCode)) {
           final dto = PaginatedDto.fromJson(respnse.data);
           return Left(dto.toModel());
         } else {
@@ -106,13 +104,13 @@ class MoviesApi {
     required int id,
   }) async {
     try {
-      final url = api.baseUrl + api.movie(id).details();
+      final url = _api.baseUrl + _api.movie(id).details();
 
-      final result = await client.get(url: url, queryParameters: {
-        _apiKey: api.key,
+      final result = await _client.get(url: url, queryParameters: {
+        _apiKey: _api.key,
       });
       return result.fold((respnse) {
-        if (client.isValidResponse(respnse.statusCode)) {
+        if (_client.isValidResponse(respnse.statusCode)) {
           final dto = MovieDetailDto.fromJson(respnse.data);
 
           return Left(dto.toModel());
@@ -144,13 +142,13 @@ class MoviesApi {
     required int id,
   }) async {
     try {
-      final url = api.baseUrl + api.movie(id).images();
+      final url = _api.baseUrl + _api.movie(id).images();
 
-      final result = await client.get(url: url, queryParameters: {
-        _apiKey: api.key,
+      final result = await _client.get(url: url, queryParameters: {
+        _apiKey: _api.key,
       });
       return result.fold((respnse) {
-        if (client.isValidResponse(respnse.statusCode)) {
+        if (_client.isValidResponse(respnse.statusCode)) {
           final dto = MovieImagesDto.fromJson(respnse.data);
 
           return Left(dto.toModel());
@@ -183,14 +181,14 @@ class MoviesApi {
     required int movieId,
   }) async {
     try {
-      final url = api.baseUrl + api.movie(movieId).similar();
+      final url = _api.baseUrl + _api.movie(movieId).similar();
 
-      final result = await client.get(url: url, queryParameters: {
-        _apiKey: api.key,
+      final result = await _client.get(url: url, queryParameters: {
+        _apiKey: _api.key,
         _pageKey: pageNumber,
       });
       return result.fold((respnse) {
-        if (client.isValidResponse(respnse.statusCode)) {
+        if (_client.isValidResponse(respnse.statusCode)) {
           final dto = PaginatedDto.fromJson(respnse.data);
           return Left(dto.toModel());
         } else {
@@ -219,12 +217,12 @@ class MoviesApi {
 
   String _getCollectionByType(MovieCollectionType type) {
     final Map<MovieCollectionType, String> collectionMap = {
-      MovieCollectionType.nowPlaying: api.movieCollection.nowPlaying,
-      MovieCollectionType.popular: api.movieCollection.popular,
-      MovieCollectionType.topRated: api.movieCollection.topRated,
-      MovieCollectionType.upcoming: api.movieCollection.upcoming,
-      MovieCollectionType.trending: api.movieCollection.trending,
+      MovieCollectionType.nowPlaying: _api.movieCollection.nowPlaying,
+      MovieCollectionType.popular: _api.movieCollection.popular,
+      MovieCollectionType.topRated: _api.movieCollection.topRated,
+      MovieCollectionType.upcoming: _api.movieCollection.upcoming,
+      MovieCollectionType.trending: _api.movieCollection.trending,
     };
-    return collectionMap[type] ?? api.movieCollection.popular;
+    return collectionMap[type] ?? _api.movieCollection.popular;
   }
 }
