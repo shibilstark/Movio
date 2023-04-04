@@ -17,6 +17,7 @@ class MovieSearchBloc extends Bloc<MovieSearchEvent, MovieSearchState> {
     on<LoadNewPage>(_loadNewPage);
   }
   void _searchMovie(SearchMovie event, Emitter<MovieSearchState> emit) async {
+    emit(MovieSearchLoading());
     if (await _haveInternetConnection()) {
       await getIt<MovieRepository>()
           .search(query: event.query.trim(), pageNumber: 0)
