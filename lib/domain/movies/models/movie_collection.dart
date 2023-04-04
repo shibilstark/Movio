@@ -6,7 +6,7 @@ class MovieCollection extends Equatable {
   final int totalPages;
   final List<Movie> movies;
 
-  MovieCollection({
+  const MovieCollection({
     required this.currentPage,
     required this.totalPages,
     required this.movies,

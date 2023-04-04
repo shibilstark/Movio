@@ -65,11 +65,6 @@ class MovieSearchBloc extends Bloc<MovieSearchEvent, MovieSearchState> {
     }
   }
 
-  @override
-  Future<void> close() {
-    return super.close();
-  }
-
   _emitLoadingForSuccess(Emitter<MovieSearchState> e) {
     final currentState = state;
     if (currentState is MovieSearchSuccess) {

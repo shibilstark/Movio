@@ -18,7 +18,7 @@ class MovieDetails extends Equatable {
   final double popularity;
   final String status;
 
-  MovieDetails({
+  const MovieDetails({
     this.posterPath,
     required this.isAdult,
     required this.overview,

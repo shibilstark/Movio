@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:movio/data/movies/entities/movie_dto/movie_dto.dart';
-import 'package:movio/domain/movies/models/movie.dart';
 import 'package:movio/domain/movies/models/movie_collection.dart';
 part 'pagineted_dto.g.dart';
 
