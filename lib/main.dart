@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movio/config/build_config.dart';
+import 'package:movio/config/strings.dart';
 import 'package:movio/config/themes.dart';
 import 'package:movio/data/api/api.dart';
 import 'package:movio/injector/injection.dart';
@@ -19,8 +20,8 @@ Future<void> initializeDependancies() async {
     config: Configuration(
       networkTimeOut: const Duration(seconds: 3),
       serverTimeOut: const Duration(seconds: 20),
-      baseUrl: Api().baseUrl,
-      appName: "Movio",
+      baseUrl: Api.baseUrl,
+      appName: AppString.appName,
     ),
   );
 
@@ -50,23 +51,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: ElevatedButton(
-            onPressed: () async {
-              // final restult = await MovieRepositoryImpl()
-              //     .search(query: "Marvel", pageNumber: 1);
-
-              // restult.fold((l) {
-              //   l.movies.forEach((element) {
-              //     log(element.title);
-              //   });
-              // }, (r) {
-              //   log(r.message);
-              // });
-            },
-            child: const Text("call")),
-      ),
-    );
+    return const Scaffold();
   }
 }
