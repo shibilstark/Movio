@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:movio/config/strings.dart';
 import 'package:movio/domain/failure.dart';
 import 'package:movio/domain/movies/enums/movie_enums.dart';
 import 'package:movio/domain/movies/models/movie_collection.dart';
@@ -33,7 +34,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       }
     } else {
       emit(HomeError(AppFailure(
-          message: "No Network Found", type: AppFailureType.internet)));
+          message: AppString.noInternet, type: AppFailureType.internet)));
     }
   }
 
