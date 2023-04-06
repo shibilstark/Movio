@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:movio/config/strings.dart';
 import 'package:movio/domain/failure.dart';
 import 'package:movio/domain/movies/enums/movie_enums.dart';
 import 'package:movio/domain/movies/models/movie_collection.dart';
@@ -31,7 +32,8 @@ class SearchIdleBloc extends Bloc<SearchIdleEvent, SearchIdleState> {
       });
     } else {
       emit(SearchIdleError(
-        AppFailure(message: "No Internet Found", type: AppFailureType.internet),
+        AppFailure(
+            message: AppString.noInternet, type: AppFailureType.internet),
       ));
     }
   }
@@ -60,7 +62,7 @@ class SearchIdleBloc extends Bloc<SearchIdleEvent, SearchIdleState> {
       } else {
         emit(SearchIdleError(
           AppFailure(
-              message: "No Internet Found", type: AppFailureType.internet),
+              message: AppString.noInternet, type: AppFailureType.internet),
         ));
       }
     } else {

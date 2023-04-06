@@ -1,9 +1,9 @@
 class Api {
   static const _apiVersion = 3;
-  final baseUrl = "https://api.themoviedb.org/$_apiVersion/";
-  final key = "25f3c58447db49a695f3896cc954076d";
-  final movieCollection = MovieCollectionEndPoint();
-  MovieEndPoint movie(int id) => MovieEndPoint(id);
+  static const baseUrl = "https://api.themoviedb.org/$_apiVersion/";
+  static const key = "25f3c58447db49a695f3896cc954076d";
+  static final movieCollection = MovieCollectionEndPoint();
+  static MovieEndPoint movie(int id) => MovieEndPoint(id);
 }
 
 /// Will return the collection of movies
