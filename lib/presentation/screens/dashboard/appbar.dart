@@ -4,8 +4,8 @@ import 'package:movio/config/dimensions.dart';
 import 'package:movio/config/strings.dart';
 import 'package:movio/presentation/widgets/theme_switch.dart';
 
-class HomeAppBar extends StatelessWidget {
-  const HomeAppBar({
+class CustomAppBar extends StatelessWidget {
+  const CustomAppBar({
     super.key,
     this.showThemeSwitch = false,
   });

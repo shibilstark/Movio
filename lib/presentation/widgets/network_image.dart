@@ -28,7 +28,7 @@ class NetWorkImageWidget extends StatelessWidget {
       borderRadius: BorderRadius.circular(radius),
       child: image == null || image!.trim() == ''
           ? placeholder == null
-              ? Container()
+              ? AppPlaceHolder(height: height, width: width, radius: radius)
               : AssetImageView(
                   fileName: placeholder!,
                   width: width,

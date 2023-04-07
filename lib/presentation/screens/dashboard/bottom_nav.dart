@@ -4,7 +4,7 @@ import 'package:movio/config/assets.dart';
 import 'package:movio/config/colors.dart';
 import 'package:movio/config/dimensions.dart';
 
-import '../../../bloc/theme/theme_bloc.dart';
+import '../../bloc/theme/theme_bloc.dart';
 
 class CustomBottomNav extends StatefulWidget {
   const CustomBottomNav({

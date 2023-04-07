@@ -6,8 +6,9 @@ import 'package:movio/config/strings.dart';
 import 'package:movio/config/themes.dart';
 import 'package:movio/data/api/api.dart';
 import 'package:movio/injector/injection.dart';
+import 'package:movio/presentation/bloc/home/home_bloc.dart';
 import 'package:movio/presentation/bloc/theme/theme_bloc.dart';
-import 'package:movio/presentation/screens/home/home_screen.dart';
+import 'package:movio/presentation/screens/dashboard/dash_board.dart';
 
 void main() async {
   await initializeDependancies();
@@ -37,9 +38,11 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => ThemeBloc()),
+        BlocProvider(create: (context) => HomeBloc()),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
+          context.read<ThemeBloc>().add(const LoadTheme());
           return ScreenUtilInit(
             designSize: const Size(360, 900),
             splitScreenMode: true,
@@ -48,7 +51,7 @@ class MyApp extends StatelessWidget {
               return MaterialApp(
                 debugShowCheckedModeBanner: false,
                 theme: state.isDarkMode ? AppThemes.dark : AppThemes.light,
-                home: const HomeScreen(),
+                home: DashBoard(),
               );
             },
           );

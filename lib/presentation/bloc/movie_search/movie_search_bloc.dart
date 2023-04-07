@@ -20,7 +20,7 @@ class MovieSearchBloc extends Bloc<MovieSearchEvent, MovieSearchState> {
     emit(MovieSearchLoading());
     if (await _haveInternetConnection()) {
       await getIt<MovieRepository>()
-          .search(query: event.query.trim(), pageNumber: 0)
+          .search(query: event.query.trim(), pageNumber: 1)
           .then((result) {
         result.fold((collection) {
           emit(MovieSearchSuccess(collection: collection));

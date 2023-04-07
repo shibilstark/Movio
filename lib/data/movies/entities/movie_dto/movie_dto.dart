@@ -16,7 +16,7 @@ class MovieDto {
   @JsonKey(name: 'overview')
   final String overview;
   @JsonKey(name: 'release_date')
-  final String releaseDate;
+  final String? releaseDate;
   @JsonKey(name: 'genre_ids')
   final List<int> genreIds;
   @JsonKey(name: 'id')
@@ -32,7 +32,7 @@ class MovieDto {
     this.posterPath,
     required this.isAdult,
     required this.overview,
-    required this.releaseDate,
+    this.releaseDate,
     required this.genreIds,
     required this.id,
     required this.originalTitle,

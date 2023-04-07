@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
@@ -27,10 +29,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
       for (MovieCollectionType val in MovieCollectionType.values) {
         final result = await getIt<MovieRepository>()
-            .getMoviesCollection(type: val, pageNumber: 0);
-
-        emit(HomeSuccess(
-            collectionMap: Map.from(collectionMap)..[val] = result));
+            .getMoviesCollection(type: val, pageNumber: 1);
+        collectionMap[val] = result;
+        emit(HomeSuccess(collectionMap: Map.from(collectionMap)));
       }
     } else {
       emit(HomeError(AppFailure(
@@ -45,10 +46,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
       if (currentState is HomeSuccess) {
         final result = await getIt<MovieRepository>()
-            .getMoviesCollection(type: event.type, pageNumber: 0);
-        emit(HomeSuccess(
-            collectionMap: Map.from(currentState.collectionMap)
-              ..[event.type] = result));
+            .getMoviesCollection(type: event.type, pageNumber: 1);
+        currentState.collectionMap[event.type] = result;
+        emit(HomeSuccess(collectionMap: Map.from(currentState.collectionMap)));
       } else {
         emit(currentState);
       }
