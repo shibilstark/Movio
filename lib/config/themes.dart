@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movio/config/colors.dart';
 import 'package:movio/config/dimensions.dart';
 
 class AppThemes {
   // Light Theme
   static final light = ThemeData(
+    fontFamily: "Open-Sans",
+    splashColor: Colors.transparent,
     scaffoldBackgroundColor: AppColors.white,
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: AppColors.white,
+    ),
     appBarTheme: AppBarTheme(
       backgroundColor: AppColors.white,
     ),
@@ -21,6 +27,10 @@ class AppThemes {
       onBackground: AppColors.lightBlack,
       surface: AppColors.black,
       onSurface: AppColors.white,
+    ),
+    primaryIconTheme: IconThemeData(
+      color: AppColors.orange,
+      size: 25.sp,
     ),
     textTheme: TextTheme(
       titleLarge: TextStyle(
@@ -64,7 +74,12 @@ class AppThemes {
 
   // Dark Theme
   static final dark = ThemeData(
+    fontFamily: "Open-Sans",
+    splashColor: Colors.transparent,
     scaffoldBackgroundColor: AppColors.black,
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: AppColors.black,
+    ),
     appBarTheme: AppBarTheme(
       backgroundColor: AppColors.black,
     ),
@@ -80,6 +95,10 @@ class AppThemes {
       onBackground: AppColors.lightWhite,
       surface: AppColors.lightWhite,
       onSurface: AppColors.lightBlack,
+    ),
+    primaryIconTheme: IconThemeData(
+      color: AppColors.orange,
+      size: 25.sp,
     ),
     textTheme: TextTheme(
       titleLarge: TextStyle(

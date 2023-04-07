@@ -1,5 +1,5 @@
 class AppString {
-  static const appName = "Movio";
+  static const appName = "Moveio";
   static const lowInternet =
       "It seems like you don't have a proper internet connection";
   static const noInternet =
@@ -25,4 +25,5 @@ class AppString {
   static const knowMore = "Know more";
   static const retry = "Retry";
   static const description = "Description";
+  static const seeAll = "See All";
 }

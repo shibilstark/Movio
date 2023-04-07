@@ -7,6 +7,7 @@ import 'package:movio/config/themes.dart';
 import 'package:movio/data/api/api.dart';
 import 'package:movio/injector/injection.dart';
 import 'package:movio/presentation/bloc/theme/theme_bloc.dart';
+import 'package:movio/presentation/screens/home/home_screen.dart';
 
 void main() async {
   await initializeDependancies();
@@ -33,8 +34,10 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ThemeBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => ThemeBloc()),
+      ],
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
           return ScreenUtilInit(
@@ -43,32 +46,13 @@ class MyApp extends StatelessWidget {
             minTextAdapt: true,
             builder: (context, child) {
               return MaterialApp(
+                debugShowCheckedModeBanner: false,
                 theme: state.isDarkMode ? AppThemes.dark : AppThemes.light,
                 home: const HomeScreen(),
               );
             },
           );
         },
-      ),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        width: 100.w,
-        color: Colors.red,
-        padding: EdgeInsets.all(20),
-        height: 100.h,
-        child: Text(
-          "Hello World",
-          style: TextStyle(fontSize: 20.sp),
-        ),
       ),
     );
   }
