@@ -20,37 +20,17 @@ class HomeSuccess extends HomeState {
   // final Either<MovieCollection, AppFailure>? popularCollection;
   // final Either<MovieCollection, AppFailure>? trendingsCollection;
 
-  final Map<MovieCollectionType, Either<MovieCollection, AppFailure>?>
-      collectionMap;
+  final List<MovieCollectionWithType> allCollections;
+
+  final int timeStamp;
 
   const HomeSuccess({
-    required this.collectionMap,
+    required this.allCollections,
+    required this.timeStamp,
   });
 
   @override
-  List<Object> get props => [
-        // upcomingCollection ?? const Uuid().v4(),
-        // topRatedCollection ?? const Uuid().v4(),
-        // trendingsCollection ?? const Uuid().v4(),
-        // nowPlayingCollection ?? const Uuid().v4(),
-        // popularCollection ?? const Uuid().v4(),
-      ];
-
-  // HomeSuccess copyWith({
-  //   Either<MovieCollection, AppFailure>? upcomingCollection,
-  //   Either<MovieCollection, AppFailure>? topRatedCollection,
-  //   Either<MovieCollection, AppFailure>? nowPlayingCollection,
-  //   Either<MovieCollection, AppFailure>? popularCollection,
-  //   Either<MovieCollection, AppFailure>? trendingsCollection,
-  // }) {
-  //   return HomeSuccess(
-  //     upcomingCollection: upcomingCollection ?? this.upcomingCollection,
-  //     topRatedCollection: topRatedCollection ?? this.topRatedCollection,
-  //     nowPlayingCollection: nowPlayingCollection ?? this.nowPlayingCollection,
-  //     popularCollection: popularCollection ?? this.popularCollection,
-  //     trendingsCollection: trendingsCollection ?? this.trendingsCollection,
-  //   );
-  // }
+  List<Object> get props => [allCollections, timeStamp];
 }
 
 class HomeLoading extends HomeState {

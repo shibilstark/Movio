@@ -1,5 +1,7 @@
+import 'package:movio/domain/movies/enums/movie_enums.dart';
+
 class AppString {
-  static const appName = "Movio";
+  static const appName = "Moveio";
   static const lowInternet =
       "It seems like you don't have a proper internet connection";
   static const noInternet =
@@ -25,4 +27,25 @@ class AppString {
   static const knowMore = "Know more";
   static const retry = "Retry";
   static const description = "Description";
+  static const seeAll = "See All";
+  static const nowPlaying = "Now Playing";
+  static const topRated = "Top Rated";
+
+  static String getCollectionNameByType(MovieCollectionType type) {
+    switch (type) {
+      case MovieCollectionType.nowPlaying:
+        return nowPlaying;
+      case MovieCollectionType.popular:
+        return popular;
+      case MovieCollectionType.topRated:
+        return topRated;
+      case MovieCollectionType.upcoming:
+        return upcoming;
+      case MovieCollectionType.trending:
+        return trending;
+
+      default:
+        return movies;
+    }
+  }
 }

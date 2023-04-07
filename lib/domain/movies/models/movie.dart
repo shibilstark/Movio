@@ -5,7 +5,7 @@ class Movie extends Equatable {
   final String? posterPath;
   final bool isAdult;
   final String overview;
-  final String releaseDate;
+  final String? releaseDate;
   final List<Genre> genreIds;
   final int id;
   final String originalTitle;
@@ -17,7 +17,7 @@ class Movie extends Equatable {
     this.posterPath,
     required this.isAdult,
     required this.overview,
-    required this.releaseDate,
+    this.releaseDate,
     required this.genreIds,
     required this.id,
     required this.originalTitle,

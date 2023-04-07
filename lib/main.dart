@@ -6,7 +6,9 @@ import 'package:movio/config/strings.dart';
 import 'package:movio/config/themes.dart';
 import 'package:movio/data/api/api.dart';
 import 'package:movio/injector/injection.dart';
+import 'package:movio/presentation/bloc/home/home_bloc.dart';
 import 'package:movio/presentation/bloc/theme/theme_bloc.dart';
+import 'package:movio/presentation/screens/dashboard/dash_board.dart';
 
 void main() async {
   await initializeDependancies();
@@ -33,42 +35,27 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ThemeBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => ThemeBloc()),
+        BlocProvider(create: (context) => HomeBloc()),
+      ],
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
+          context.read<ThemeBloc>().add(const LoadTheme());
           return ScreenUtilInit(
             designSize: const Size(360, 900),
             splitScreenMode: true,
             minTextAdapt: true,
             builder: (context, child) {
               return MaterialApp(
+                debugShowCheckedModeBanner: false,
                 theme: state.isDarkMode ? AppThemes.dark : AppThemes.light,
-                home: const HomeScreen(),
+                home: DashBoard(),
               );
             },
           );
         },
-      ),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        width: 100.w,
-        color: Colors.red,
-        padding: EdgeInsets.all(20),
-        height: 100.h,
-        child: Text(
-          "Hello World",
-          style: TextStyle(fontSize: 20.sp),
-        ),
       ),
     );
   }

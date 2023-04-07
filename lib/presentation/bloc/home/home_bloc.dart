@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
@@ -8,6 +10,7 @@ import 'package:movio/domain/movies/models/movie_collection.dart';
 import 'package:movio/domain/movies/repository/movie_repository.dart';
 import 'package:movio/injector/injection.dart';
 import 'package:movio/utils/connectivity/connectivity_util.dart';
+import 'package:movio/utils/date_time/date_time_util.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
@@ -22,16 +25,22 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(HomeLoading());
 
     if (await _haveInternetConnection()) {
-      Map<MovieCollectionType, Either<MovieCollection, AppFailure>?>
-          collectionMap = {};
+      List<MovieCollectionWithType> allCollections = [];
 
       for (MovieCollectionType val in MovieCollectionType.values) {
         final result = await getIt<MovieRepository>()
-            .getMoviesCollection(type: val, pageNumber: 0);
+            .getMoviesCollection(type: val, pageNumber: 1);
 
-        emit(HomeSuccess(
-            collectionMap: Map.from(collectionMap)..[val] = result));
+        allCollections.add(
+          convertToTypedCollection(result, val),
+        );
       }
+
+      emit(
+        HomeSuccess(
+            timeStamp: DateUtil.getTimeStamp(),
+            allCollections: List.from(allCollections)),
+      );
     } else {
       emit(HomeError(AppFailure(
           message: AppString.noInternet, type: AppFailureType.internet)));
@@ -45,14 +54,26 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
       if (currentState is HomeSuccess) {
         final result = await getIt<MovieRepository>()
-            .getMoviesCollection(type: event.type, pageNumber: 0);
-        emit(HomeSuccess(
-            collectionMap: Map.from(currentState.collectionMap)
-              ..[event.type] = result));
+            .getMoviesCollection(type: event.type, pageNumber: 1);
+
+        HomeSuccess(
+          timeStamp: DateUtil.getTimeStamp(),
+          allCollections: List.from(currentState.allCollections)
+            ..removeWhere((element) => element.type == event.type)
+            ..add(
+              convertToTypedCollection(result, event.type),
+            ),
+        );
       } else {
         emit(currentState);
       }
     }
+  }
+
+  MovieCollectionWithType convertToTypedCollection(
+      Either<MovieCollection, AppFailure>? collection,
+      MovieCollectionType type) {
+    return MovieCollectionWithType(collection: collection, type: type);
   }
 
   Future<bool> _haveInternetConnection() =>

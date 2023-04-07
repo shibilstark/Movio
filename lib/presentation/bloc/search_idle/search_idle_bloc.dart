@@ -22,7 +22,7 @@ class SearchIdleBloc extends Bloc<SearchIdleEvent, SearchIdleState> {
     if (await _haveInternetConnection()) {
       await getIt<MovieRepository>()
           .getMoviesCollection(
-              type: MovieCollectionType.trending, pageNumber: 0)
+              type: MovieCollectionType.trending, pageNumber: 1)
           .then((result) {
         result.fold((collection) {
           emit(SearchIdleSuccess(collection: collection));

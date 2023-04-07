@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:movio/config/strings.dart';
@@ -23,6 +24,7 @@ class AppNetwork {
 
       return Left(res);
     } on DioError catch (e) {
+      log(e.message);
       if (e.type == DioErrorType.connectTimeout ||
           e.type == DioErrorType.sendTimeout ||
           e.type == DioErrorType.receiveTimeout) {
@@ -31,6 +33,7 @@ class AppNetwork {
 
       return Right(DioFailure(message: AppString.somethingWentWrong));
     } catch (e) {
+      log(e.toString());
       return Right(DioFailure(message: AppString.somethingWentWrong));
     }
   }
