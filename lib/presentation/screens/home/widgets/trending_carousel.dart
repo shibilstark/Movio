@@ -26,28 +26,35 @@ class TrendingCarouselWidget extends StatelessWidget {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         if (state is HomeSuccess) {
-          final trending = state.collectionMap[MovieCollectionType.trending];
+          try {
+            final trending = state.allCollections.firstWhere(
+                (element) => element.type == MovieCollectionType.trending);
 
-          if (trending == null) {
+            if (trending.collection == null) {
+              return HomeCarouselLoadingWidget(
+                width: width,
+              );
+            }
+
+            return trending.collection!.fold((collection) {
+              final movies = collection.movies;
+
+              if (movies.isEmpty) {
+                return const SizedBox();
+              }
+
+              return HomeCarouselViewWidget(
+                width: width,
+                movies: movies,
+              );
+            }, (err) {
+              return const SizedBox();
+            });
+          } catch (e) {
             return HomeCarouselLoadingWidget(
               width: width,
             );
           }
-
-          return trending.fold((collection) {
-            final movies = collection.movies;
-
-            if (movies.isEmpty) {
-              return const SizedBox();
-            }
-
-            return HomeCarouselViewWidget(
-              width: width,
-              movies: movies,
-            );
-          }, (err) {
-            return const SizedBox();
-          });
         }
 
         return HomeCarouselLoadingWidget(
@@ -74,7 +81,7 @@ class HomeCarouselLoadingWidget extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 20),
           child: CarouselSlider.builder(
-            itemCount: list2.length,
+            itemCount: 10,
             itemBuilder: (context, index, realIndex) {
               return RoundedContainerWidget(
                 borderRadius: BorderRadius.circular(15),
@@ -135,7 +142,7 @@ class _HomeCarouselViewWidgetState extends State<HomeCarouselViewWidget> {
         Padding(
           padding: const EdgeInsets.only(top: 20),
           child: CarouselSlider.builder(
-            itemCount: list2.length,
+            itemCount: widget.movies.length,
             itemBuilder: (context, index, realIndex) {
               final movie = widget.movies[index];
 
@@ -342,5 +349,3 @@ class CarouselActionsLoadingWidget extends StatelessWidget {
     );
   }
 }
-
-List list2 = [1, 2, 3, 4, 5, 6];

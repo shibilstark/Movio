@@ -12,8 +12,8 @@ class AppThemes {
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: AppColors.white,
     ),
-    appBarTheme: AppBarTheme(
-      backgroundColor: AppColors.white,
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.transparent,
     ),
     colorScheme: ColorScheme(
       brightness: Brightness.light,
@@ -80,8 +80,8 @@ class AppThemes {
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: AppColors.black,
     ),
-    appBarTheme: AppBarTheme(
-      backgroundColor: AppColors.black,
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.transparent,
     ),
     colorScheme: ColorScheme(
       brightness: Brightness.light,

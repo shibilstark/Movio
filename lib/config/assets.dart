@@ -11,4 +11,5 @@ class AppIconAssets {
   static const back = Icons.arrow_back_ios_new;
   static const info = Icons.info_outlined;
   static const forwardArrow = Icons.arrow_forward;
+  static const retry = Icons.replay;
 }

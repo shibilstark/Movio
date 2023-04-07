@@ -16,7 +16,7 @@ class CustomAppBar extends StatelessWidget {
     return AppBar(
       automaticallyImplyLeading: false,
       toolbarHeight: kToolbarHeight,
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: Colors.transparent,
       elevation: 0,
       actions: !showThemeSwitch
           ? null
