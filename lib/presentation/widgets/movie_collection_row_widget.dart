@@ -15,6 +15,7 @@ import 'package:movio/presentation/widgets/movie_poster.dart';
 import 'package:movio/presentation/widgets/rounded_container.dart';
 
 import '../bloc/home/home_bloc.dart';
+import '../bloc/more_movies/more_movies_bloc.dart';
 import '../bloc/movie_detail/movie_detail_bloc.dart';
 import '../router/routers.dart';
 
@@ -40,13 +41,49 @@ class CollectionRowWidget extends StatelessWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            AppString.getCollectionNameByType(type),
-            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  fontSize: AppFontSize.bodyMedium,
-                  fontWeight: AppFontWeight.bold,
-                  letterSpacing: 1.5,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                AppString.getCollectionNameByType(type),
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontSize: AppFontSize.bodyMedium,
+                      fontWeight: AppFontWeight.bold,
+                      letterSpacing: 1.5,
+                    ),
+              ),
+              InkWell(
+                onTap: () {
+                  context.read<MoreMoviesBloc>().add(GetCollection(type));
+                  AppNavigator.push(
+                      context: context,
+                      screenName: AppRouter.MORE_MOVIE_BY_TYPE,
+                      arguments: {
+                        "type": type,
+                      });
+                },
+                child: LimitedBox(
+                  child: Row(
+                    children: [
+                      Text(
+                        AppString.seeAll,
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                              fontSize: AppFontSize.bodySmall,
+                              fontWeight: AppFontWeight.medium,
+                              letterSpacing: 1.3,
+                            ),
+                      ),
+                      Gap(W: 5.h),
+                      Icon(
+                        AppIconAssets.forwardArrow,
+                        size: 18,
+                        color: Theme.of(context).textTheme.bodyLarge!.color,
+                      )
+                    ],
+                  ),
                 ),
+              )
+            ],
           ),
           Gap(H: 10.h),
           SizedBox(

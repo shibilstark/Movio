@@ -152,7 +152,7 @@ class _SearchIdleWidgetState extends State<SearchIdleWidget> {
                   );
                 }
 
-                return Gap();
+                return const Gap();
               },
             ),
           ],
