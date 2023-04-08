@@ -12,14 +12,16 @@ class SearchIdleInitial extends SearchIdleState {
 class SearchIdleSuccess extends SearchIdleState {
   final MovieCollection collection;
   final bool isReloading;
+  final int timeStamp;
 
   const SearchIdleSuccess({
     required this.collection,
     this.isReloading = false,
+    required this.timeStamp,
   });
 
   @override
-  List<Object?> get props => [collection, isReloading];
+  List<Object?> get props => [collection, isReloading, timeStamp];
 }
 
 class SearchIdleError extends SearchIdleState {

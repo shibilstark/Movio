@@ -14,7 +14,7 @@ part 'movie_search_state.dart';
 class MovieSearchBloc extends Bloc<MovieSearchEvent, MovieSearchState> {
   MovieSearchBloc() : super(MovieSearchInitial()) {
     on<SearchMovie>(_searchMovie);
-    on<LoadNewPage>(_loadNewPage);
+    on<LoadNewResults>(_loadNewPage);
   }
   void _searchMovie(SearchMovie event, Emitter<MovieSearchState> emit) async {
     emit(MovieSearchLoading());
@@ -36,45 +36,42 @@ class MovieSearchBloc extends Bloc<MovieSearchEvent, MovieSearchState> {
     }
   }
 
-  void _loadNewPage(LoadNewPage event, Emitter<MovieSearchState> emit) async {
-    _emitLoadingForSuccess(emit);
-    if (await _haveInternetConnection()) {
-      await getIt<MovieRepository>()
-          .search(query: event.query.trim(), pageNumber: event.page)
-          .then((result) {
-        result.fold((collection) {
-          final currentState = state;
-          if (currentState is MovieSearchSuccess) {
-            emit(MovieSearchSuccess(
-                collection: MovieCollection(
-                    currentPage: collection.currentPage,
-                    totalPages: collection.totalPages,
-                    movies: List.from(currentState.collection.movies)
-                      ..addAll(collection.movies)
-                      ..toSet()
-                      ..toList())));
-          } else {
-            emit(MovieSearchSuccess(collection: collection));
-          }
-        }, (error) {
-          emit(MovieSearchError(error));
-        });
-      });
-    } else {
-      emit(MovieSearchError(
-        AppFailure(
-            message: AppString.noInternet, type: AppFailureType.internet),
-      ));
-    }
-  }
-
-  _emitLoadingForSuccess(Emitter<MovieSearchState> e) {
+  void _loadNewPage(
+      LoadNewResults event, Emitter<MovieSearchState> emit) async {
     final currentState = state;
+
     if (currentState is MovieSearchSuccess) {
-      e(MovieSearchSuccess(
+      emit(MovieSearchSuccess(
           collection: currentState.collection, isReloading: true));
-    } else {
-      e(currentState);
+
+      if (await _haveInternetConnection()) {
+        await getIt<MovieRepository>()
+            .search(
+                query: event.query.trim(),
+                pageNumber: currentState.collection.currentPage + 1)
+            .then((result) {
+          result.fold((collection) {
+            final currentState = state;
+            if (currentState is MovieSearchSuccess) {
+              emit(MovieSearchSuccess(
+                  collection: MovieCollection(
+                      currentPage: collection.currentPage,
+                      totalPages: collection.totalPages,
+                      movies: List.from(currentState.collection.movies)
+                        ..addAll(collection.movies)
+                        ..toSet()
+                        ..toList())));
+            } else {
+              emit(MovieSearchSuccess(collection: collection));
+            }
+          }, (error) {
+            emit(MovieSearchError(error));
+          });
+        });
+      } else {
+        emit(MovieSearchSuccess(
+            collection: currentState.collection, isReloading: false));
+      }
     }
   }
 

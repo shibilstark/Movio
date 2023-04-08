@@ -7,6 +7,7 @@ import 'package:movio/domain/movies/models/movie_collection.dart';
 import 'package:movio/domain/movies/repository/movie_repository.dart';
 import 'package:movio/injector/injection.dart';
 import 'package:movio/utils/connectivity/connectivity_util.dart';
+import 'package:movio/utils/date_time/date_time_util.dart';
 
 part 'search_idle_event.dart';
 part 'search_idle_state.dart';
@@ -25,7 +26,10 @@ class SearchIdleBloc extends Bloc<SearchIdleEvent, SearchIdleState> {
               type: MovieCollectionType.trending, pageNumber: 1)
           .then((result) {
         result.fold((collection) {
-          emit(SearchIdleSuccess(collection: collection));
+          emit(SearchIdleSuccess(
+            collection: collection,
+            timeStamp: DateUtil.getTimeStamp(),
+          ));
         }, (error) {
           emit(SearchIdleError(error));
         });
@@ -41,20 +45,29 @@ class SearchIdleBloc extends Bloc<SearchIdleEvent, SearchIdleState> {
   void _laodNewPage(LoadNewPage event, Emitter<SearchIdleState> emit) async {
     final currentState = state;
     if (currentState is SearchIdleSuccess) {
-      emit(SearchIdleLoading());
+      emit(SearchIdleSuccess(
+        timeStamp: DateUtil.getTimeStamp(),
+        collection: currentState.collection,
+        isReloading: true,
+      ));
+
       if (await _haveInternetConnection()) {
         await getIt<MovieRepository>()
             .getMoviesCollection(
-                type: MovieCollectionType.trending, pageNumber: event.page)
+                type: MovieCollectionType.trending,
+                pageNumber: currentState.collection.currentPage + 1)
             .then((result) {
           result.fold((collection) {
             emit(SearchIdleSuccess(
+                timeStamp: DateUtil.getTimeStamp(),
                 collection: MovieCollection(
-              currentPage: collection.currentPage,
-              movies: List.from(currentState.collection.movies)
-                ..addAll(collection.movies),
-              totalPages: collection.totalPages,
-            )));
+                  currentPage: collection.currentPage,
+                  movies: [
+                    ...currentState.collection.movies,
+                    ...collection.movies
+                  ].toSet().toList(),
+                  totalPages: collection.totalPages,
+                )));
           }, (error) {
             emit(SearchIdleError(error));
           });

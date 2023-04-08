@@ -10,9 +10,8 @@ abstract class SearchIdleEvent extends Equatable {
 class LoadIdle extends SearchIdleEvent {}
 
 class LoadNewPage extends SearchIdleEvent {
-  final int page;
-  const LoadNewPage(this.page);
+  const LoadNewPage();
 
   @override
-  List<Object> get props => [page];
+  List<Object> get props => [];
 }
