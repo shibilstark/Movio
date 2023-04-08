@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,14 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movio/config/assets.dart';
 import 'package:movio/config/colors.dart';
 import 'package:movio/config/dimensions.dart';
-import 'package:movio/config/paths.dart';
 import 'package:movio/config/strings.dart';
 import 'package:movio/domain/failure.dart';
 import 'package:movio/domain/movies/enums/movie_enums.dart';
 import 'package:movio/domain/movies/models/movie_collection.dart';
 import 'package:movio/presentation/widgets/gap.dart';
 import 'package:movio/presentation/widgets/loaders.dart';
-import 'package:movio/presentation/widgets/network_image.dart';
+import 'package:movio/presentation/widgets/movie_poster.dart';
 import 'package:movio/presentation/widgets/rounded_container.dart';
 
 import '../bloc/home/home_bloc.dart';
@@ -60,13 +57,10 @@ class CollectionRowWidget extends StatelessWidget {
                 itemCount: movieCollection.movies.length,
                 itemBuilder: (context, index) {
                   final movie = movieCollection.movies[index];
-                  return RoundedContainerWidget(
-                    borderRadius: BorderRadius.circular(5),
-                    key: UniqueKey(),
+                  return MoviePosterWidget(
                     height: height,
                     width: width,
-                    child: NetWorkImageWidget(
-                        image: ApiPaths.image(movie.posterPath)),
+                    poster: movie.posterPath,
                   );
                 }),
           ),

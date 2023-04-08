@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movio/config/dimensions.dart';
 import 'package:movio/presentation/screens/dashboard/appbar.dart';
 import 'package:movio/presentation/screens/home/home_screen.dart';
+import 'package:movio/presentation/screens/search/search_screen.dart';
+import 'package:movio/presentation/widgets/gap.dart';
 import 'package:movio/presentation/widgets/scroll_to_hide.dart';
 
 import 'bottom_nav.dart';
@@ -17,7 +19,7 @@ class DashBoard extends StatelessWidget {
 
   final _tabs = [
     HomeScreen(scrollController: glabalScrollController),
-    Container(),
+    SearchScreen(scrollController: glabalScrollController),
     Container(),
     Container(),
     Container(),
@@ -27,34 +29,38 @@ class DashBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        key: scaffoldKey,
-        appBar: const PreferredSize(
-          preferredSize: AppSpecific.appBarHeight,
-          child: CustomAppBar(
-            showThemeSwitch: true,
-          ),
-        ),
-        body: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            ValueListenableBuilder(
-              valueListenable: bottomNavController,
-              builder: (context, value, child) {
-                return _tabs[value];
-              },
-            ),
-            HideOnScroll(
-              controller: glabalScrollController,
-              visibleHeight: 85.h,
-              child: CustomBottomNav(
-                bottomNavController: bottomNavController,
+    return ValueListenableBuilder(
+        valueListenable: bottomNavController,
+        builder: (context, value, child) {
+          return SafeArea(
+            child: Scaffold(
+              resizeToAvoidBottomInset: false,
+              key: scaffoldKey,
+              appBar: PreferredSize(
+                preferredSize: value == 1
+                    ? const Size.fromHeight(0)
+                    : AppSpecific.appBarHeight,
+                child: value == 1
+                    ? const Gap()
+                    : const CustomAppBar(
+                        showThemeSwitch: true,
+                      ),
               ),
-            )
-          ],
-        ),
-      ),
-    );
+              body: Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  _tabs[value],
+                  HideOnScroll(
+                    controller: glabalScrollController,
+                    visibleHeight: 85.h,
+                    child: CustomBottomNav(
+                      bottomNavController: bottomNavController,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        });
   }
 }

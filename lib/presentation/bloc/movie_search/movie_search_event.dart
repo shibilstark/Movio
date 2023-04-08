@@ -12,15 +12,13 @@ class SearchMovie extends MovieSearchEvent {
   List<Object?> get props => [query];
 }
 
-class LoadNewPage extends MovieSearchEvent {
+class LoadNewResults extends MovieSearchEvent {
   final String query;
-  final int page;
 
-  LoadNewPage({
+  LoadNewResults({
     required this.query,
-    required this.page,
   });
 
   @override
-  List<Object?> get props => [page, query];
+  List<Object?> get props => [query];
 }

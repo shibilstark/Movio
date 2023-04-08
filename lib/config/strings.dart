@@ -30,6 +30,7 @@ class AppString {
   static const seeAll = "See All";
   static const nowPlaying = "Now Playing";
   static const topRated = "Top Rated";
+  static const searchResults = "Search Results";
 
   static String getCollectionNameByType(MovieCollectionType type) {
     switch (type) {
