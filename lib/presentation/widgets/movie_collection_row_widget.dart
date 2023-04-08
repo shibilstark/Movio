@@ -15,6 +15,8 @@ import 'package:movio/presentation/widgets/movie_poster.dart';
 import 'package:movio/presentation/widgets/rounded_container.dart';
 
 import '../bloc/home/home_bloc.dart';
+import '../bloc/movie_detail/movie_detail_bloc.dart';
+import '../router/routers.dart';
 
 class CollectionRowWidget extends StatelessWidget {
   const CollectionRowWidget({
@@ -57,10 +59,20 @@ class CollectionRowWidget extends StatelessWidget {
                 itemCount: movieCollection.movies.length,
                 itemBuilder: (context, index) {
                   final movie = movieCollection.movies[index];
-                  return MoviePosterWidget(
-                    height: height,
-                    width: width,
-                    poster: movie.posterPath,
+                  return InkWell(
+                    onTap: () {
+                      context
+                          .read<MovieDetailBloc>()
+                          .add(LoadMovieDetails(movie.id));
+
+                      AppNavigator.push(
+                          context: context, screenName: AppRouter.ABOUT_MOVIE);
+                    },
+                    child: MoviePosterWidget(
+                      height: height,
+                      width: width,
+                      poster: movie.posterPath,
+                    ),
                   );
                 }),
           ),

@@ -14,12 +14,6 @@ class HomeInitial extends HomeState {
 }
 
 class HomeSuccess extends HomeState {
-  // final Either<MovieCollection, AppFailure>? upcomingCollection;
-  // final Either<MovieCollection, AppFailure>? topRatedCollection;
-  // final Either<MovieCollection, AppFailure>? nowPlayingCollection;
-  // final Either<MovieCollection, AppFailure>? popularCollection;
-  // final Either<MovieCollection, AppFailure>? trendingsCollection;
-
   final List<MovieCollectionWithType> allCollections;
 
   final int timeStamp;

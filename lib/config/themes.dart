@@ -36,38 +36,47 @@ class AppThemes {
       titleLarge: TextStyle(
         fontSize: AppFontSize.titleLarge,
         color: AppColors.black,
+        letterSpacing: 1.2,
       ),
       titleMedium: TextStyle(
         fontSize: AppFontSize.titleMedium,
         color: AppColors.black,
+        letterSpacing: 1.2,
       ),
       titleSmall: TextStyle(
         fontSize: AppFontSize.titleSmall,
         color: AppColors.black,
+        letterSpacing: 1.2,
       ),
       bodyLarge: TextStyle(
         fontSize: AppFontSize.bodyLarge,
         color: AppColors.black,
+        letterSpacing: 1.2,
       ),
       bodyMedium: TextStyle(
         fontSize: AppFontSize.bodyMedium,
         color: AppColors.black,
+        letterSpacing: 1.2,
       ),
       bodySmall: TextStyle(
         fontSize: AppFontSize.bodySmall,
         color: AppColors.black,
+        letterSpacing: 1.2,
       ),
       displayLarge: TextStyle(
         fontSize: AppFontSize.displayLarge,
         color: AppColors.lightBlack,
+        letterSpacing: 1.2,
       ),
       displayMedium: TextStyle(
         fontSize: AppFontSize.displayMedium,
         color: AppColors.lightBlack,
+        letterSpacing: 1.2,
       ),
       displaySmall: TextStyle(
         fontSize: AppFontSize.bodySmall,
         color: AppColors.lightBlack,
+        letterSpacing: 1.2,
       ),
     ),
   );
@@ -104,38 +113,47 @@ class AppThemes {
       titleLarge: TextStyle(
         fontSize: AppFontSize.titleLarge,
         color: AppColors.white,
+        letterSpacing: 1.2,
       ),
       titleMedium: TextStyle(
         fontSize: AppFontSize.titleMedium,
         color: AppColors.white,
+        letterSpacing: 1.2,
       ),
       titleSmall: TextStyle(
         fontSize: AppFontSize.titleSmall,
         color: AppColors.white,
+        letterSpacing: 1.2,
       ),
       bodyLarge: TextStyle(
         fontSize: AppFontSize.bodyLarge,
         color: AppColors.white,
+        letterSpacing: 1.2,
       ),
       bodyMedium: TextStyle(
         fontSize: AppFontSize.bodyMedium,
         color: AppColors.white,
+        letterSpacing: 1.2,
       ),
       bodySmall: TextStyle(
         fontSize: AppFontSize.bodySmall,
         color: AppColors.white,
+        letterSpacing: 1.2,
       ),
       displayLarge: TextStyle(
         fontSize: AppFontSize.displayLarge,
         color: AppColors.lightWhite,
+        letterSpacing: 1.2,
       ),
       displayMedium: TextStyle(
         fontSize: AppFontSize.displayMedium,
         color: AppColors.lightWhite,
+        letterSpacing: 1.2,
       ),
       displaySmall: TextStyle(
         fontSize: AppFontSize.bodySmall,
         color: AppColors.lightWhite,
+        letterSpacing: 1.2,
       ),
     ),
   );

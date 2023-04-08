@@ -10,6 +10,9 @@ import 'package:movio/presentation/widgets/gap.dart';
 import 'package:movio/presentation/widgets/network_image.dart';
 import 'package:movio/presentation/widgets/rounded_container.dart';
 
+import '../../../bloc/movie_detail/movie_detail_bloc.dart';
+import '../../../router/routers.dart';
+
 class SearchIdleWidget extends StatefulWidget {
   const SearchIdleWidget({
     super.key,
@@ -76,15 +79,26 @@ class _SearchIdleWidgetState extends State<SearchIdleWidget> {
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: state.collection.movies.length + 1,
-                        itemBuilder: (context, index) =>
-                            index == state.collection.movies.length
-                                ? const Gap()
-                                : RoundedContainerWidget(
-                                    borderRadius: BorderRadius.circular(5),
-                                    child: NetWorkImageWidget(
-                                        image: ApiPaths.image(state.collection
-                                            .movies[index].posterPath)),
-                                  ),
+                        itemBuilder: (context, index) => index ==
+                                state.collection.movies.length
+                            ? const Gap()
+                            : InkWell(
+                                onTap: () {
+                                  context.read<MovieDetailBloc>().add(
+                                      LoadMovieDetails(
+                                          state.collection.movies[index].id));
+
+                                  AppNavigator.push(
+                                      context: context,
+                                      screenName: AppRouter.ABOUT_MOVIE);
+                                },
+                                child: RoundedContainerWidget(
+                                  borderRadius: BorderRadius.circular(5),
+                                  child: NetWorkImageWidget(
+                                      image: ApiPaths.image(state.collection
+                                          .movies[index].posterPath)),
+                                ),
+                              ),
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 4,
