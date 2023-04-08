@@ -31,6 +31,12 @@ class AppString {
   static const nowPlaying = "Now Playing";
   static const topRated = "Top Rated";
   static const searchResults = "Search Results";
+  static const aboutMovie = "About Movie";
+  static const releaseData = "Release Date";
+  static const revenue = "Revenue";
+  static const budget = "Budget";
+  static const originalLanguage = "Original Language";
+  static const popularity = "Popularity";
 
   static String getCollectionNameByType(MovieCollectionType type) {
     switch (type) {

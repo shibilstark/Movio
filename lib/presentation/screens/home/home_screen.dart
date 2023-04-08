@@ -74,6 +74,10 @@ class HomeBody extends StatelessWidget {
                     final movieCollection = collections.firstWhere((element) =>
                         element.type == MovieCollectionType.values[index]);
 
+                    if (movieCollection.type == MovieCollectionType.trending) {
+                      return const Gap();
+                    }
+
                     return CollectionRowWidget(
                       collection: movieCollection.collection,
                       type: MovieCollectionType.values[index],

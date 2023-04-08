@@ -9,6 +9,7 @@ import 'package:movio/config/paths.dart';
 import 'package:movio/config/strings.dart';
 import 'package:movio/domain/movies/enums/movie_enums.dart';
 import 'package:movio/domain/movies/models/movie.dart';
+import 'package:movio/presentation/router/routers.dart';
 import 'package:movio/presentation/widgets/gap.dart';
 import 'package:movio/presentation/widgets/icon_with_text.dart';
 import 'package:movio/presentation/widgets/loaders.dart';
@@ -16,6 +17,7 @@ import 'package:movio/presentation/widgets/network_image.dart';
 import 'package:movio/presentation/widgets/rounded_container.dart';
 
 import '../../../bloc/home/home_bloc.dart';
+import '../../../bloc/movie_detail/movie_detail_bloc.dart';
 
 class TrendingCarouselWidget extends StatelessWidget {
   const TrendingCarouselWidget({super.key});
@@ -148,7 +150,12 @@ class _HomeCarouselViewWidgetState extends State<HomeCarouselViewWidget> {
 
               return InkWell(
                 onTap: () {
-                  // TODO
+                  context
+                      .read<MovieDetailBloc>()
+                      .add(LoadMovieDetails(movie.id));
+
+                  AppNavigator.push(
+                      context: context, screenName: AppRouter.ABOUT_MOVIE);
                 },
                 child: RoundedContainerWidget(
                   borderRadius: BorderRadius.circular(15),

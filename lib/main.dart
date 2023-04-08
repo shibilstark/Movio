@@ -7,11 +7,11 @@ import 'package:movio/config/themes.dart';
 import 'package:movio/data/api/api.dart';
 import 'package:movio/injector/injection.dart';
 import 'package:movio/presentation/bloc/home/home_bloc.dart';
+import 'package:movio/presentation/bloc/movie_detail/movie_detail_bloc.dart';
 import 'package:movio/presentation/bloc/movie_search/movie_search_bloc.dart';
 import 'package:movio/presentation/bloc/search_idle/search_idle_bloc.dart';
 import 'package:movio/presentation/bloc/theme/theme_bloc.dart';
-import 'package:movio/presentation/screens/dashboard/dash_board.dart';
-import 'package:movio/presentation/screens/splash/splash_screen.dart';
+import 'package:movio/presentation/router/routers.dart';
 
 void main() async {
   await initializeDependancies();
@@ -44,6 +44,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => HomeBloc()),
         BlocProvider(create: (context) => SearchIdleBloc()),
         BlocProvider(create: (context) => MovieSearchBloc()),
+        BlocProvider(create: (context) => MovieDetailBloc()),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
@@ -56,7 +57,8 @@ class MyApp extends StatelessWidget {
               return MaterialApp(
                 debugShowCheckedModeBanner: false,
                 theme: state.isDarkMode ? AppThemes.dark : AppThemes.light,
-                home: SplashScreen(),
+                onGenerateRoute: AppRouter.ongeneratedRoute,
+                initialRoute: AppRouter.SPLASH_SCREEN,
               );
             },
           );
