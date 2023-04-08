@@ -3,13 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:movio/presentation/screens/about_movie/about_movie_screen.dart';
 import 'package:movio/presentation/screens/dashboard/dash_board.dart';
+import 'package:movio/presentation/screens/more_movies/more_movie_screen.dart';
 import 'package:movio/presentation/screens/splash/splash_screen.dart';
 
 class AppRouter {
   static const SPLASH_SCREEN = "/";
   static const ABOUT_MOVIE = "/aboutmovie";
   static const DASH_BOARD = "/dashboard";
-  static const MORE_MOVIE_TYPE = "/moremovietype";
+  static const MORE_MOVIE_BY_TYPE = "/moremovietype";
 
   static Route? ongeneratedRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -19,6 +20,15 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const SplashScreen());
       case ABOUT_MOVIE:
         return MaterialPageRoute(builder: (_) => const AboutMovieScreen());
+      case MORE_MOVIE_BY_TYPE:
+        final args = settings.arguments as Map<String, dynamic>?;
+
+        final type = args?["type"];
+
+        return MaterialPageRoute(
+            builder: (_) => MoreMovieScreen(
+                  type: type,
+                ));
 
       default:
         return null;

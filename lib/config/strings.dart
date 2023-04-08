@@ -37,6 +37,8 @@ class AppString {
   static const budget = "Budget";
   static const originalLanguage = "Original Language";
   static const popularity = "Popularity";
+  static const similarMovies = "Similar Movies";
+  static const moreSimilarMovies = "More Similar Movies..";
 
   static String getCollectionNameByType(MovieCollectionType type) {
     switch (type) {

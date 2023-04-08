@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:money_formatter/money_formatter.dart';
@@ -9,9 +10,12 @@ import 'package:movio/config/strings.dart';
 import 'package:movio/domain/failure.dart';
 import 'package:movio/domain/movies/models/movie_detail.dart';
 import 'package:movio/domain/movies/models/movie_image.dart';
+import 'package:movio/presentation/router/routers.dart';
 import 'package:movio/presentation/widgets/gap.dart';
 import 'package:movio/presentation/widgets/network_image.dart';
 import 'package:movio/presentation/widgets/rounded_container.dart';
+
+import '../../../bloc/more_movies/more_movies_bloc.dart';
 
 class MovieImagesWidget extends StatelessWidget {
   const MovieImagesWidget({
@@ -183,14 +187,42 @@ class MovieAdditionalDetailWidget extends StatelessWidget {
           ),
           Gap(H: 10.h),
           ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) => MovieDetailTileWidget(
-                    title: titleList[index],
-                    value: valueList[index],
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) => MovieDetailTileWidget(
+              title: titleList[index],
+              value: valueList[index],
+            ),
+            separatorBuilder: (context, index) => Gap(H: 10.h),
+            itemCount: titleList.length,
+          ),
+          Gap(H: 10.h),
+          Row(
+            children: [
+              Expanded(
+                child: MaterialButton(
+                  onPressed: () {
+                    context
+                        .read<MoreMoviesBloc>()
+                        .add(GetSimilarMovies(movie.id));
+                    AppNavigator.push(
+                      context: context,
+                      screenName: AppRouter.MORE_MOVIE_BY_TYPE,
+                    );
+                  },
+                  color: AppColors.orange,
+                  child: Text(
+                    AppString.moreSimilarMovies,
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          fontWeight: AppFontWeight.semiBold,
+                          fontSize: AppFontSize.bodyMedium,
+                          color: AppColors.white,
+                        ),
                   ),
-              separatorBuilder: (context, index) => Gap(H: 10.h),
-              itemCount: titleList.length),
+                ),
+              ),
+            ],
+          )
         ],
       ),
     );
