@@ -19,8 +19,8 @@ class ThemeSwitch extends StatelessWidget {
           toggleSize: size / 1.5,
           value: state.isDarkMode,
           activeColor: AppColors.orange.withOpacity(0.8),
-          inactiveColor: AppColors.orange.withOpacity(0.8),
-          inactiveToggleColor: AppColors.white,
+          inactiveColor: AppColors.white,
+          inactiveToggleColor: AppColors.orange.withOpacity(0.8),
           activeToggleColor: AppColors.lightWhite,
           onToggle: (val) {
             context.read<ThemeBloc>().add(ChangeTheme(val));

@@ -10,18 +10,18 @@ class IconWithText extends StatelessWidget {
     super.key,
     required this.icon,
     required this.label,
-    required this.onatp,
+    required this.onTap,
     this.iconSize = 20,
   });
   final IconData icon;
   final String label;
-  final void Function() onatp;
+  final void Function() onTap;
   final double iconSize;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onatp,
+      onTap: onTap,
       child: SizedBox(
         child: Column(
           children: [

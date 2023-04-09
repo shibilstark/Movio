@@ -11,6 +11,7 @@ import 'package:movio/domain/failure.dart';
 import 'package:movio/domain/movies/enums/movie_enums.dart';
 import 'package:movio/domain/movies/models/movie_collection.dart';
 import 'package:movio/domain/movies/models/movie_image.dart';
+import 'package:movio/global/user_data.dart';
 import 'package:movio/packages/network/app_network.dart';
 
 import '../../../domain/movies/models/movie_detail.dart';
@@ -70,7 +71,7 @@ class MoviesApi {
         _apiKey: Api.key,
         _pageKey: pageNumber,
         _queryKey: query,
-        _includeAdultKey: true,
+        _includeAdultKey: UserData.nsfwContentStatus,
       });
       return result.fold((respnse) {
         if (AppNetwork.isValidResponse(respnse.statusCode)) {

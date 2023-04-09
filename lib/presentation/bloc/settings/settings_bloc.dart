@@ -1,6 +1,7 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:movio/config/constants.dart';
+import 'package:movio/global/user_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'settings_event.dart';
@@ -13,8 +14,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   }
 
   Future _laodSettings(LoadSettings event, Emitter<SettingsState> emit) async {
-    emit(SettingsSuccess(
-        nsfwStatus: await _getValue(PreferenceKeys.nsfwStatuc)));
+    UserData.nsfwContentStatus = await _getValue(PreferenceKeys.nsfwStatuc);
+    emit(SettingsSuccess(nsfwStatus: UserData.nsfwContentStatus));
   }
 
   void _changeNsfwStatus(
@@ -23,6 +24,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
     if (currentState is SettingsSuccess) {
       await _setValue(PreferenceKeys.nsfwStatuc, event.value);
+      UserData.nsfwContentStatus = event.value;
+
       emit(currentState.copyWith(nsfwStatus: event.value));
     } else {
       await _laodSettings(const LoadSettings(), emit);

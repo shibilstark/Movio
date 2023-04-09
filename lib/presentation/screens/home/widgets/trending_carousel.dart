@@ -162,7 +162,7 @@ class _HomeCarouselViewWidgetState extends State<HomeCarouselViewWidget> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: NetWorkImageWidget(
-                    image: ApiPaths.image(movie.posterPath),
+                    image: ApiPaths.originalImage(movie.posterPath),
                   ),
                 ),
               );
@@ -255,8 +255,14 @@ class CarouselActionsWidget extends StatelessWidget {
                     IconWithText(
                       icon: AppIconAssets.info,
                       label: AppString.about,
-                      onatp: () {
-                        // TODO
+                      onTap: () {
+                        context
+                            .read<MovieDetailBloc>()
+                            .add(LoadMovieDetails(movie.id));
+
+                        AppNavigator.push(
+                            context: context,
+                            screenName: AppRouter.ABOUT_MOVIE);
                       },
                     ),
                     Gap(W: 15.w),
@@ -267,7 +273,13 @@ class CarouselActionsWidget extends StatelessWidget {
                       elevation: 0,
                       color: Theme.of(context).colorScheme.background,
                       onPressed: () {
-                        // TODO
+                        context
+                            .read<MovieDetailBloc>()
+                            .add(LoadMovieDetails(movie.id));
+
+                        AppNavigator.push(
+                            context: context,
+                            screenName: AppRouter.ABOUT_MOVIE);
                       },
                       child: Text(
                         AppString.knowMore,
@@ -283,7 +295,7 @@ class CarouselActionsWidget extends StatelessWidget {
                     IconWithText(
                       icon: AppIconAssets.bookMark,
                       label: AppString.add,
-                      onatp: () {
+                      onTap: () {
                         // TODO
                       },
                     ),

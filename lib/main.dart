@@ -11,6 +11,7 @@ import 'package:movio/presentation/bloc/more_movies/more_movies_bloc.dart';
 import 'package:movio/presentation/bloc/movie_detail/movie_detail_bloc.dart';
 import 'package:movio/presentation/bloc/movie_search/movie_search_bloc.dart';
 import 'package:movio/presentation/bloc/search_idle/search_idle_bloc.dart';
+import 'package:movio/presentation/bloc/settings/settings_bloc.dart';
 import 'package:movio/presentation/bloc/theme/theme_bloc.dart';
 import 'package:movio/presentation/router/routers.dart';
 
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => MovieSearchBloc()),
         BlocProvider(create: (context) => MovieDetailBloc()),
         BlocProvider(create: (context) => MoreMoviesBloc()),
+        BlocProvider(create: (context) => SettingsBloc()),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {

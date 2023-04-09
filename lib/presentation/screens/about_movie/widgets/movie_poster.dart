@@ -37,7 +37,7 @@ class MoviePosterWidget extends StatelessWidget {
                 width: double.infinity,
                 height: backdropHeight,
                 child: NetWorkImageWidget(
-                  image: ApiPaths.image(movieDetails.backdropPath),
+                  image: ApiPaths.originalImage(movieDetails.backdropPath),
                   fit: BoxFit.fitWidth,
                 ),
               ),
@@ -60,7 +60,7 @@ class MoviePosterWidget extends StatelessWidget {
                     height: posterHeight,
                     width: posterWidth,
                     child: NetWorkImageWidget(
-                      image: ApiPaths.image(movieDetails.posterPath),
+                      image: ApiPaths.originalImage(movieDetails.posterPath),
                     ),
                   ),
                   Gap(W: 15.w),

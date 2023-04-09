@@ -39,6 +39,9 @@ class AppString {
   static const popularity = "Popularity";
   static const similarMovies = "Similar Movies";
   static const moreSimilarMovies = "More Similar Movies..";
+  static const nsfwContent = "18+ Content";
+  static const darkMode = "Dark Mode";
+  static const adultSymbol = "18+";
 
   static String getCollectionNameByType(MovieCollectionType type) {
     switch (type) {

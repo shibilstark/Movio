@@ -40,7 +40,8 @@ class MovieImagesWidget extends StatelessWidget {
             itemBuilder: (context, index) => RoundedContainerWidget(
               borderRadius: BorderRadius.circular(5),
               child: NetWorkImageWidget(
-                image: ApiPaths.image(postersToShowHere[index].filePath),
+                image:
+                    ApiPaths.originalImage(postersToShowHere[index].filePath),
               ),
             ),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -58,7 +59,8 @@ class MovieImagesWidget extends StatelessWidget {
             itemBuilder: (context, index) => RoundedContainerWidget(
               borderRadius: BorderRadius.circular(5),
               child: NetWorkImageWidget(
-                image: ApiPaths.image(backdropsToShowHere[index].filePath),
+                image:
+                    ApiPaths.originalImage(backdropsToShowHere[index].filePath),
               ),
             ),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -142,14 +144,12 @@ class MovieAdditionalDetailWidget extends StatelessWidget {
                           CircleAvatar(
                             radius: 12,
                             backgroundColor: AppColors.orange,
-                            child: Flexible(
-                              child: Text(
-                                "18+",
-                                style: TextStyle(
-                                  color: AppColors.white,
-                                  fontWeight: AppFontWeight.semiBold,
-                                  fontSize: AppFontSize.displayLarge,
-                                ),
+                            child: Text(
+                              AppString.adultSymbol,
+                              style: TextStyle(
+                                color: AppColors.white,
+                                fontWeight: AppFontWeight.semiBold,
+                                fontSize: AppFontSize.displayLarge,
                               ),
                             ),
                           ),
