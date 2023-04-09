@@ -1,4 +1,3 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,7 +25,7 @@ class CollectionRowWidget extends StatelessWidget {
     required this.type,
   });
   final MovieCollectionType type;
-  final Either<MovieCollection, AppFailure>? collection;
+  final dynamic collection;
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +34,9 @@ class CollectionRowWidget extends StatelessWidget {
 
     if (collection == null) {
       return const CollectionRowLoadingWidget();
-    }
+    } else if (collection is MovieCollection) {
+      final movieCollection = collection as MovieCollection;
 
-    return collection!.fold((movieCollection) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -115,12 +114,15 @@ class CollectionRowWidget extends StatelessWidget {
           ),
         ],
       );
-    }, (error) {
+    } else if (collection is AppFailure) {
+      final failure = collection as AppFailure;
       return CollectionRowErrorWidget(
         type: type,
-        message: error.message,
+        message: failure.message,
       );
-    });
+    } else {
+      return const CollectionRowLoadingWidget();
+    }
   }
 }
 

@@ -7,8 +7,10 @@ import 'package:movio/config/colors.dart';
 import 'package:movio/config/dimensions.dart';
 import 'package:movio/config/paths.dart';
 import 'package:movio/config/strings.dart';
+import 'package:movio/domain/failure.dart';
 import 'package:movio/domain/movies/enums/movie_enums.dart';
 import 'package:movio/domain/movies/models/movie.dart';
+import 'package:movio/domain/movies/models/movie_collection.dart';
 import 'package:movio/presentation/router/routers.dart';
 import 'package:movio/presentation/widgets/gap.dart';
 import 'package:movio/presentation/widgets/icon_with_text.dart';
@@ -38,20 +40,16 @@ class TrendingCarouselWidget extends StatelessWidget {
               );
             }
 
-            return trending.collection!.fold((collection) {
-              final movies = collection.movies;
-
-              if (movies.isEmpty) {
-                return const SizedBox();
-              }
+            if (trending.collection is MovieCollection) {
+              final collection = trending.collection as MovieCollection;
 
               return HomeCarouselViewWidget(
                 width: width,
-                movies: movies,
+                movies: collection.movies,
               );
-            }, (err) {
-              return const SizedBox();
-            });
+            }
+
+            return const SizedBox();
           } catch (e) {
             return HomeCarouselLoadingWidget(
               width: width,

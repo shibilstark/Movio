@@ -1,6 +1,4 @@
-import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:movio/domain/failure.dart';
 import 'package:movio/domain/movies/enums/movie_enums.dart';
 import 'package:movio/domain/movies/models/movie.dart';
 
@@ -20,7 +18,8 @@ class MovieCollection extends Equatable {
 }
 
 class MovieCollectionWithType extends Equatable {
-  final Either<MovieCollection, AppFailure>? collection;
+  /// Possible values are null, MovieCollcection or App Failure
+  final dynamic collection;
   final MovieCollectionType type;
 
   const MovieCollectionWithType({

@@ -1,7 +1,7 @@
 import 'package:movio/domain/movies/enums/movie_enums.dart';
 
 class AppString {
-  static const appName = "Moveio";
+  static const appName = "Movieo";
   static const lowInternet =
       "It seems like you don't have a proper internet connection";
   static const noInternet =
