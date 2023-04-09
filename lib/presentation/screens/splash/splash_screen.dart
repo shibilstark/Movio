@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movio/presentation/bloc/settings/settings_bloc.dart';
+import 'package:movio/presentation/router/routers.dart';
 import 'package:movio/presentation/screens/dashboard/dash_board.dart';
 
 import '../../bloc/home/home_bloc.dart';
@@ -15,9 +17,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    context.read<HomeBloc>().add(const LoadCollections());
-    context.read<SearchIdleBloc>().add(LoadIdle());
-
+    context.read<SettingsBloc>().add(const LoadSettings());
     super.initState();
   }
 
@@ -27,9 +27,21 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => DashBoard()));
     });
-    return const Scaffold(
-      body: Center(
-        child: Text("Loading..."),
+    return Scaffold(
+      body: BlocListener<SettingsBloc, SettingsState>(
+        listener: (context, state) {
+          if (state is SettingsSuccess) {
+            context.read<HomeBloc>().add(const LoadCollections());
+            context.read<SearchIdleBloc>().add(LoadIdle());
+            AppNavigator.pushReplacement(
+                context: context, screenName: AppRouter.DASH_BOARD);
+          } else {
+            context.read<SettingsBloc>().add(const LoadSettings());
+          }
+        },
+        child: const Center(
+          child: Text("Loading..."),
+        ),
       ),
     );
   }

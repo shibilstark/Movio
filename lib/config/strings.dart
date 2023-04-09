@@ -1,7 +1,7 @@
 import 'package:movio/domain/movies/enums/movie_enums.dart';
 
 class AppString {
-  static const appName = "Moveio";
+  static const appName = "Movieo";
   static const lowInternet =
       "It seems like you don't have a proper internet connection";
   static const noInternet =
@@ -39,6 +39,9 @@ class AppString {
   static const popularity = "Popularity";
   static const similarMovies = "Similar Movies";
   static const moreSimilarMovies = "More Similar Movies..";
+  static const nsfwContent = "18+ Content";
+  static const darkMode = "Dark Mode";
+  static const adultSymbol = "18+";
 
   static String getCollectionNameByType(MovieCollectionType type) {
     switch (type) {

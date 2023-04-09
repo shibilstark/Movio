@@ -7,8 +7,10 @@ import 'package:movio/config/colors.dart';
 import 'package:movio/config/dimensions.dart';
 import 'package:movio/config/paths.dart';
 import 'package:movio/config/strings.dart';
+import 'package:movio/domain/failure.dart';
 import 'package:movio/domain/movies/enums/movie_enums.dart';
 import 'package:movio/domain/movies/models/movie.dart';
+import 'package:movio/domain/movies/models/movie_collection.dart';
 import 'package:movio/presentation/router/routers.dart';
 import 'package:movio/presentation/widgets/gap.dart';
 import 'package:movio/presentation/widgets/icon_with_text.dart';
@@ -38,20 +40,16 @@ class TrendingCarouselWidget extends StatelessWidget {
               );
             }
 
-            return trending.collection!.fold((collection) {
-              final movies = collection.movies;
-
-              if (movies.isEmpty) {
-                return const SizedBox();
-              }
+            if (trending.collection is MovieCollection) {
+              final collection = trending.collection as MovieCollection;
 
               return HomeCarouselViewWidget(
                 width: width,
-                movies: movies,
+                movies: collection.movies,
               );
-            }, (err) {
-              return const SizedBox();
-            });
+            }
+
+            return const SizedBox();
           } catch (e) {
             return HomeCarouselLoadingWidget(
               width: width,
@@ -164,7 +162,7 @@ class _HomeCarouselViewWidgetState extends State<HomeCarouselViewWidget> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: NetWorkImageWidget(
-                    image: ApiPaths.image(movie.posterPath),
+                    image: ApiPaths.originalImage(movie.posterPath),
                   ),
                 ),
               );
@@ -257,8 +255,14 @@ class CarouselActionsWidget extends StatelessWidget {
                     IconWithText(
                       icon: AppIconAssets.info,
                       label: AppString.about,
-                      onatp: () {
-                        // TODO
+                      onTap: () {
+                        context
+                            .read<MovieDetailBloc>()
+                            .add(LoadMovieDetails(movie.id));
+
+                        AppNavigator.push(
+                            context: context,
+                            screenName: AppRouter.ABOUT_MOVIE);
                       },
                     ),
                     Gap(W: 15.w),
@@ -269,7 +273,13 @@ class CarouselActionsWidget extends StatelessWidget {
                       elevation: 0,
                       color: Theme.of(context).colorScheme.background,
                       onPressed: () {
-                        // TODO
+                        context
+                            .read<MovieDetailBloc>()
+                            .add(LoadMovieDetails(movie.id));
+
+                        AppNavigator.push(
+                            context: context,
+                            screenName: AppRouter.ABOUT_MOVIE);
                       },
                       child: Text(
                         AppString.knowMore,
@@ -285,7 +295,7 @@ class CarouselActionsWidget extends StatelessWidget {
                     IconWithText(
                       icon: AppIconAssets.bookMark,
                       label: AppString.add,
-                      onatp: () {
+                      onTap: () {
                         // TODO
                       },
                     ),

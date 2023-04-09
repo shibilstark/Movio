@@ -4,6 +4,7 @@ import 'package:movio/config/dimensions.dart';
 import 'package:movio/presentation/screens/dashboard/appbar.dart';
 import 'package:movio/presentation/screens/home/home_screen.dart';
 import 'package:movio/presentation/screens/search/search_screen.dart';
+import 'package:movio/presentation/screens/settings/settings_screen.dart';
 import 'package:movio/presentation/widgets/gap.dart';
 import 'package:movio/presentation/widgets/scroll_to_hide.dart';
 
@@ -21,10 +22,7 @@ class DashBoard extends StatelessWidget {
     HomeScreen(scrollController: glabalScrollController),
     SearchScreen(scrollController: glabalScrollController),
     Container(),
-    Container(),
-    Container(),
-    Container(),
-    Container(),
+    SettingsScreen(scrollController: glabalScrollController)
   ];
 
   @override
@@ -40,11 +38,7 @@ class DashBoard extends StatelessWidget {
                 preferredSize: value == 1
                     ? const Size.fromHeight(0)
                     : AppSpecific.appBarHeight,
-                child: value == 1
-                    ? const Gap()
-                    : const CustomAppBar(
-                        showThemeSwitch: true,
-                      ),
+                child: value == 1 ? const Gap() : const CustomAppBar(),
               ),
               body: Stack(
                 alignment: Alignment.bottomCenter,

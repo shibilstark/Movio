@@ -12,4 +12,5 @@ class AppIconAssets {
   static const info = Icons.info_outlined;
   static const forwardArrow = Icons.arrow_forward;
   static const retry = Icons.replay;
+  static const darkMode = Icons.dark_mode;
 }

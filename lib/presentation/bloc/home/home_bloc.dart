@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
@@ -71,9 +69,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   MovieCollectionWithType convertToTypedCollection(
-      Either<MovieCollection, AppFailure>? collection,
-      MovieCollectionType type) {
-    return MovieCollectionWithType(collection: collection, type: type);
+      Either<MovieCollection, AppFailure>? result, MovieCollectionType type) {
+    if (result == null) {
+      return MovieCollectionWithType(collection: null, type: type);
+    }
+
+    return result.fold(
+        (l) => MovieCollectionWithType(collection: l, type: type),
+        (r) => MovieCollectionWithType(collection: r, type: type));
   }
 
   Future<bool> _haveInternetConnection() =>
