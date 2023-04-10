@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movio/domain/movies/enums/movie_enums.dart';
 import 'package:movio/domain/movies/models/movie_collection.dart';
+import 'package:movio/presentation/widgets/error.dart';
 import 'package:movio/presentation/widgets/movie_collection_row_widget.dart';
 import 'package:movio/presentation/screens/home/widgets/trending_carousel.dart';
 import 'package:movio/presentation/widgets/gap.dart';
@@ -36,6 +37,12 @@ class _HomeScreenState extends State<HomeScreen> {
             scrollController: widget.scrollController,
             collections: state.allCollections,
           );
+        } else if (state is HomeError) {
+          return AppErrorWidget(
+              callBack: () {
+                context.read<HomeBloc>().add(const LoadCollections());
+              },
+              error: state.error);
         } else {
           return const Center(child: SizedBox());
         }

@@ -64,7 +64,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   radius: 10,
                   backgroundColor: AppColors.orange,
                   child: Text(
-                    AppString.nsfwContent,
+                    AppString.adultSymbol,
                     style: TextStyle(
                       color: AppColors.white,
                       fontWeight: AppFontWeight.semiBold,

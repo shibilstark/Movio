@@ -153,7 +153,11 @@ class _HomeCarouselViewWidgetState extends State<HomeCarouselViewWidget> {
                       .add(LoadMovieDetails(movie.id));
 
                   AppNavigator.push(
-                      context: context, screenName: AppRouter.ABOUT_MOVIE);
+                      context: context,
+                      screenName: AppRouter.ABOUT_MOVIE,
+                      arguments: {
+                        "movieId": movie.id,
+                      });
                 },
                 child: RoundedContainerWidget(
                   borderRadius: BorderRadius.circular(15),
@@ -259,10 +263,12 @@ class CarouselActionsWidget extends StatelessWidget {
                         context
                             .read<MovieDetailBloc>()
                             .add(LoadMovieDetails(movie.id));
-
                         AppNavigator.push(
                             context: context,
-                            screenName: AppRouter.ABOUT_MOVIE);
+                            screenName: AppRouter.ABOUT_MOVIE,
+                            arguments: {
+                              "movieId": movie.id,
+                            });
                       },
                     ),
                     Gap(W: 15.w),
@@ -279,7 +285,10 @@ class CarouselActionsWidget extends StatelessWidget {
 
                         AppNavigator.push(
                             context: context,
-                            screenName: AppRouter.ABOUT_MOVIE);
+                            screenName: AppRouter.ABOUT_MOVIE,
+                            arguments: {
+                              "movieId": movie.id,
+                            });
                       },
                       child: Text(
                         AppString.knowMore,

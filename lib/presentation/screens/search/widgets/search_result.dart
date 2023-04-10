@@ -6,6 +6,7 @@ import 'package:movio/config/dimensions.dart';
 import 'package:movio/config/paths.dart';
 import 'package:movio/config/strings.dart';
 import 'package:movio/presentation/bloc/search_idle/search_idle_bloc.dart';
+import 'package:movio/presentation/widgets/error.dart';
 import 'package:movio/presentation/widgets/gap.dart';
 import 'package:movio/presentation/widgets/network_image.dart';
 import 'package:movio/presentation/widgets/rounded_container.dart';
@@ -110,7 +111,11 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
 
                                     AppNavigator.push(
                                         context: context,
-                                        screenName: AppRouter.ABOUT_MOVIE);
+                                        screenName: AppRouter.ABOUT_MOVIE,
+                                        arguments: {
+                                          "movieId":
+                                              state.collection.movies[index].id,
+                                        });
                                   },
                                   child: RoundedContainerWidget(
                                     borderRadius: BorderRadius.circular(5),
@@ -121,7 +126,7 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                                 ),
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 4,
+                            crossAxisCount: 3,
                             childAspectRatio: 2 / 3,
                             mainAxisSpacing: 5,
                             crossAxisSpacing: 5,
@@ -129,7 +134,13 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                         );
                       }
 
-                      if (state is MovieSearchError) {}
+                      if (state is MovieSearchError) {
+                        return AppErrorWidget(
+                            callBack: () {
+                              widget.focusNode.value.requestFocus();
+                            },
+                            error: state.error);
+                      }
 
                       return GridView.builder(
                         itemCount: 20,
@@ -144,7 +155,7 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                         ),
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 4,
+                          crossAxisCount: 3,
                           childAspectRatio: 2 / 3,
                           mainAxisSpacing: 5,
                           crossAxisSpacing: 5,

@@ -43,6 +43,14 @@ class AppString {
   static const darkMode = "Dark Mode";
   static const adultSymbol = "18+";
 
+  static const titleClientError = "Error!";
+
+  static const titleInternetError = "Check Your Connection";
+
+  static const titleServerError = "Can't Process Request";
+
+  static const titleCommontError = "Can't Process";
+
   static String getCollectionNameByType(MovieCollectionType type) {
     switch (type) {
       case MovieCollectionType.nowPlaying:

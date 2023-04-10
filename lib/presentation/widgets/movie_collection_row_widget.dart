@@ -102,7 +102,11 @@ class CollectionRowWidget extends StatelessWidget {
                           .add(LoadMovieDetails(movie.id));
 
                       AppNavigator.push(
-                          context: context, screenName: AppRouter.ABOUT_MOVIE);
+                          context: context,
+                          screenName: AppRouter.ABOUT_MOVIE,
+                          arguments: {
+                            "movieId": movie.id,
+                          });
                     },
                     child: MoviePosterWidget(
                       height: height,
@@ -123,75 +127,6 @@ class CollectionRowWidget extends StatelessWidget {
     } else {
       return const CollectionRowLoadingWidget();
     }
-  }
-}
-
-class TopTenCollectionRowWidget extends StatelessWidget {
-  const TopTenCollectionRowWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width * 0.25;
-    final height = width * 1.5;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "Trending",
-          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                fontSize: AppFontSize.bodyMedium,
-                fontWeight: AppFontWeight.bold,
-                letterSpacing: 1.5,
-              ),
-        ),
-        Gap(H: 10.h),
-        SizedBox(
-          height: height,
-          child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              physics: const BouncingScrollPhysics(),
-              shrinkWrap: true,
-              separatorBuilder: (context, index) => Gap(W: 5.w),
-              itemCount: 10,
-              itemBuilder: (context, index) => ClipRRect(
-                    borderRadius: BorderRadius.circular(5),
-                    child: Stack(
-                      fit: StackFit.passthrough,
-                      children: [
-                        Container(
-                          key: UniqueKey(),
-                          height: height,
-                          width: width,
-                          decoration: BoxDecoration(
-                            color: Colors.accents[index],
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: RoundedContainerWidget(
-                              height: height / 6,
-                              width: width / 4,
-                              borderRadius: BorderRadius.circular(5),
-                              decoration: BoxDecoration(
-                                color: AppColors.black,
-                              ),
-                              child: Text(
-                                "#$index",
-                                style: TextStyle(color: AppColors.white),
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  )),
-        ),
-      ],
-    );
   }
 }
 
@@ -256,7 +191,6 @@ class CollectionRowErrorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width * 0.25;
-    final height = width * 1.5;
 
     return Stack(
       alignment: Alignment.center,

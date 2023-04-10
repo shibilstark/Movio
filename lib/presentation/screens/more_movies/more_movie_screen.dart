@@ -5,6 +5,7 @@ import 'package:movio/config/colors.dart';
 import 'package:movio/domain/movies/enums/movie_enums.dart';
 import 'package:movio/presentation/bloc/more_movies/more_movies_bloc.dart';
 import 'package:movio/presentation/bloc/movie_detail/movie_detail_bloc.dart';
+import 'package:movio/presentation/widgets/error.dart';
 import 'package:movio/presentation/widgets/gap.dart';
 
 import '../../../config/dimensions.dart';
@@ -50,8 +51,12 @@ class _MoreMovieScreenState extends State<MoreMovieScreen> {
         !state.isReloading &&
         scrollController.offset == max) {
       context.read<MoreMoviesBloc>().add(widget.type == null
-          ? ReLoadSimilarMovies(widget.movieId)
-          : ReLoadCollection(widget.type!));
+          ? ReLoadSimilarMovies(
+              widget.movieId,
+            )
+          : ReLoadCollection(
+              widget.type!,
+            ));
     }
   }
 
@@ -89,7 +94,11 @@ class _MoreMovieScreenState extends State<MoreMovieScreen> {
 
                                   AppNavigator.push(
                                       context: context,
-                                      screenName: AppRouter.ABOUT_MOVIE);
+                                      screenName: AppRouter.ABOUT_MOVIE,
+                                      arguments: {
+                                        "movieId": state
+                                            .similarCollection.movies[index].id,
+                                      });
                                 },
                                 child: RoundedContainerWidget(
                                   borderRadius: BorderRadius.circular(5),
@@ -110,7 +119,15 @@ class _MoreMovieScreenState extends State<MoreMovieScreen> {
                   );
                 }
 
-                if (state is MoreMoviesError) {}
+                if (state is MoreMoviesError) {
+                  return AppErrorWidget(
+                      callBack: () {
+                        context.read<MoreMoviesBloc>().add(widget.type == null
+                            ? GetSimilarMovies(widget.movieId)
+                            : GetCollection(widget.type!));
+                      },
+                      error: state.error);
+                }
 
                 return GridView.builder(
                   itemCount: 20,

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movio/config/colors.dart';
+import 'package:movio/config/dimensions.dart';
+import 'package:movio/domain/failure.dart';
 import 'package:movio/presentation/bloc/settings/settings_bloc.dart';
 import 'package:movio/presentation/router/routers.dart';
-import 'package:movio/presentation/screens/dashboard/dash_board.dart';
-
+import 'package:movio/presentation/widgets/error.dart';
+import '../../../config/strings.dart';
 import '../../bloc/home/home_bloc.dart';
 import '../../bloc/search_idle/search_idle_bloc.dart';
 
@@ -23,24 +26,36 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => DashBoard()));
-    });
     return Scaffold(
       body: BlocListener<SettingsBloc, SettingsState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state is SettingsSuccess) {
             context.read<HomeBloc>().add(const LoadCollections());
             context.read<SearchIdleBloc>().add(LoadIdle());
-            AppNavigator.pushReplacement(
-                context: context, screenName: AppRouter.DASH_BOARD);
+            await Future.delayed(const Duration(seconds: 2)).then((value) {
+              AppNavigator.pushReplacement(
+                  context: context, screenName: AppRouter.DASH_BOARD);
+            });
           } else {
             context.read<SettingsBloc>().add(const LoadSettings());
           }
         },
-        child: const Center(
-          child: Text("Loading..."),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                AppString.appName.toUpperCase(),
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                      fontWeight: AppFontWeight.bold,
+                      fontSize: 32,
+                      color: AppColors.orange,
+                      letterSpacing: 4,
+                    ),
+              ),
+            ],
+          ),
         ),
       ),
     );

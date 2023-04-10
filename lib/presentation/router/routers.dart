@@ -19,7 +19,13 @@ class AppRouter {
       case SPLASH_SCREEN:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
       case ABOUT_MOVIE:
-        return MaterialPageRoute(builder: (_) => const AboutMovieScreen());
+        final moveiId =
+            ((settings.arguments as Map<String, dynamic>)["movieId"] as int?) ??
+                -1;
+        return MaterialPageRoute(
+            builder: (_) => AboutMovieScreen(
+                  movieId: moveiId,
+                ));
       case MORE_MOVIE_BY_TYPE:
         final args = settings.arguments as Map<String, dynamic>?;
 
