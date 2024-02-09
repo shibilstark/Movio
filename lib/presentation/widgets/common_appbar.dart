@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movio/config/assets.dart';
-import 'package:movio/config/colors.dart';
 import 'package:movio/config/dimensions.dart';
 import 'package:movio/presentation/router/routers.dart';
 

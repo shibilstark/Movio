@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,7 +9,6 @@ import 'package:movio/config/colors.dart';
 import 'package:movio/config/dimensions.dart';
 import 'package:movio/config/paths.dart';
 import 'package:movio/config/strings.dart';
-import 'package:movio/domain/failure.dart';
 import 'package:movio/domain/movies/enums/movie_enums.dart';
 import 'package:movio/domain/movies/models/movie.dart';
 import 'package:movio/domain/movies/models/movie_collection.dart';
