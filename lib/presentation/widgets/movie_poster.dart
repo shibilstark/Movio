@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:movio/config/paths.dart';
 import 'package:movio/presentation/widgets/network_image.dart';

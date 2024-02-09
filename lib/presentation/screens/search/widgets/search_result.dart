@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,7 +7,6 @@ import 'package:movio/config/colors.dart';
 import 'package:movio/config/dimensions.dart';
 import 'package:movio/config/paths.dart';
 import 'package:movio/config/strings.dart';
-import 'package:movio/presentation/bloc/search_idle/search_idle_bloc.dart';
 import 'package:movio/presentation/widgets/gap.dart';
 import 'package:movio/presentation/widgets/network_image.dart';
 import 'package:movio/presentation/widgets/rounded_container.dart';
@@ -172,7 +173,7 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
                     );
                   }
 
-                  return Gap();
+                  return const Gap();
                 },
               ),
             ],

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:movio/config/dimensions.dart';
 
 class HideOnScroll extends StatefulWidget {
   const HideOnScroll(
